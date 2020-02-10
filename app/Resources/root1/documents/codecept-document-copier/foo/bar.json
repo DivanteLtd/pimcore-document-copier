@@ -1,0 +1,215 @@
+{
+    "realFullPath": "\/codecept-document-copier\/foo\/bar",
+    "type": "page",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page",
+        "\/codecept-document-copier\/foo": "page"
+    },
+    "elements": {
+        "myBlock": {
+            "type": "block",
+            "data": [
+                "1",
+                "2"
+            ]
+        },
+        "myBlock:1.content": {
+            "type": "textarea",
+            "data": "Text for block A"
+        },
+        "myBlock:1.heading": {
+            "type": "input",
+            "data": "Block A"
+        },
+        "myBlock:2.content": {
+            "type": "textarea",
+            "data": "Text for block B"
+        },
+        "myBlock:2.heading": {
+            "type": "input",
+            "data": "Block B"
+        },
+        "myCheckbox": {
+            "type": "checkbox",
+            "data": false
+        },
+        "myDate1": {
+            "type": "date",
+            "data": 1576450800
+        },
+        "myDate2": {
+            "type": "date",
+            "data": 1576490449
+        },
+        "myImage": {
+            "type": "image",
+            "data": {
+                "alt": "",
+                "cropPercent": null,
+                "cropWidth": null,
+                "cropHeight": null,
+                "cropTop": null,
+                "cropLeft": null,
+                "hotspots": [],
+                "marker": [],
+                "path": "\/codecept-document-copier\/my-dir\/my-asset.png"
+            }
+        },
+        "myInput": {
+            "type": "input",
+            "data": "hello world"
+        },
+        "myLink1": {
+            "type": "link",
+            "data": {
+                "internalType": null,
+                "linktype": "direct",
+                "text": "Click me",
+                "path": "\/foo\/baz",
+                "target": "",
+                "parameters": "",
+                "anchor": "",
+                "title": "",
+                "accesskey": "",
+                "rel": "",
+                "tabindex": "",
+                "class": "",
+                "attributes": "",
+                "type": "internal"
+            }
+        },
+        "myLink2": {
+            "type": "link",
+            "data": {
+                "internalType": null,
+                "linktype": "direct",
+                "text": "Example",
+                "path": "https:\/\/example.com",
+                "target": "_blank",
+                "parameters": "",
+                "anchor": "",
+                "title": "",
+                "accesskey": "",
+                "rel": "",
+                "tabindex": "",
+                "class": "",
+                "attributes": "",
+                "type": "internal"
+            }
+        },
+        "myMultiselect": {
+            "type": "multiselect",
+            "data": [
+                "b",
+                "a"
+            ]
+        },
+        "myNumeric": {
+            "type": "numeric",
+            "data": "14"
+        },
+        "mySelect": {
+            "type": "select",
+            "data": "b"
+        },
+        "mySnippet": {
+            "type": "snippet",
+            "data": "\/codecept-document-copier\/snippets\/snip"
+        },
+        "myTable": {
+            "type": "table",
+            "data": [
+                [
+                    "A1",
+                    " A2"
+                ],
+                [
+                    " B1",
+                    "B2 "
+                ],
+                [
+                    " ",
+                    " "
+                ]
+            ]
+        },
+        "myTextarea": {
+            "type": "textarea",
+            "data": "lorem ipsum"
+        },
+        "myWysiwyg": {
+            "type": "wysiwyg",
+            "data": "<p>dolor sit amet<\/p>\n"
+        }
+    },
+    "properties": {
+        "assetProp": {
+            "type": "asset",
+            "data": "\/codecept-document-copier\/my-dir\/my-asset.png",
+            "inheritable": true
+        },
+        "checkboxProp": {
+            "type": "bool",
+            "data": true,
+            "inheritable": true
+        },
+        "docProp": {
+            "type": "document",
+            "data": "\/codecept-document-copier\/foo\/baz",
+            "inheritable": true
+        },
+        "navigation_name": {
+            "type": "text",
+            "data": "test",
+            "inheritable": false
+        },
+        "textProp": {
+            "type": "text",
+            "data": "testing",
+            "inheritable": true
+        },
+        "uncheckedProp": {
+            "type": "bool",
+            "data": false,
+            "inheritable": true
+        }
+    },
+    "settings": {
+        "title": "My Title",
+        "description": "\u017b\u00f3\u0142\u0107",
+        "module": "AppBundle",
+        "controller": "@AppBundle\\Controller\\DocumentController",
+        "action": "default",
+        "template": "Document\/poc.html.twig",
+        "published": true,
+        "prettyUrl": "\/myprettyurl"
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/foo\/bar\/bar-child",
+            "reason": "Child document"
+        },
+        {
+            "type": "asset",
+            "path": "\/codecept-document-copier\/my-dir\/my-asset.png",
+            "reason": "Property 'assetProp'"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/foo\/baz",
+            "reason": "Property 'docProp'"
+        },
+        {
+            "type": "asset",
+            "path": "\/codecept-document-copier\/my-dir\/my-asset.png",
+            "reason": "Element 'myImage' of type 'image'"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/snippets\/snip",
+            "reason": "Element 'mySnippet' of type 'snippet'"
+        }
+    ]
+}

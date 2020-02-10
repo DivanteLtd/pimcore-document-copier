@@ -1,0 +1,25 @@
+{
+    "realFullPath": "\/codecept-document-copier\/snippets",
+    "type": "folder",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page"
+    },
+    "elements": null,
+    "properties": [],
+    "settings": {
+        "published": true
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/snippets\/snip",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/snippets\/another-snip",
+            "reason": "Child document"
+        }
+    ]
+}

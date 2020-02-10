@@ -1,0 +1,41 @@
+{
+    "realFullPath": "\/codecept-document-copier",
+    "type": "page",
+    "ancestors": {
+        "\/": "page"
+    },
+    "elements": [],
+    "properties": [],
+    "settings": {
+        "title": "",
+        "description": "",
+        "module": null,
+        "controller": "default",
+        "action": "default",
+        "template": null,
+        "published": true,
+        "prettyUrl": null
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/foo",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/links",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/emails",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/snippets",
+            "reason": "Child document"
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "realFullPath": "\/codecept-document-copier\/links",
+    "type": "folder",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page"
+    },
+    "elements": null,
+    "properties": [],
+    "settings": {
+        "published": true
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/links\/direct-link",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/links\/internal-link",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/links\/hardlink-with-inheritance",
+            "reason": "Child document"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/links\/hardlink-without-inheritance",
+            "reason": "Child document"
+        }
+    ]
+}

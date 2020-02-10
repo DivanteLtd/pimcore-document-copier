@@ -1,0 +1,100 @@
+{
+    "realFullPath": "\/codecept-document-copier\/emails\/dear-foo",
+    "type": "email",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page",
+        "\/codecept-document-copier\/emails": "folder"
+    },
+    "elements": {
+        "myCheckbox": {
+            "type": "checkbox",
+            "data": false
+        },
+        "myDate1": {
+            "type": "date",
+            "data": null
+        },
+        "myDate2": {
+            "type": "date",
+            "data": null
+        },
+        "myInput": {
+            "type": "input",
+            "data": "Hello world from e-mail"
+        },
+        "myLink1": {
+            "type": "link",
+            "data": {
+                "type": "internal",
+                "path": "",
+                "parameters": "",
+                "anchor": "",
+                "accesskey": "",
+                "rel": "",
+                "tabindex": "",
+                "target": "",
+                "class": "",
+                "attributes": ""
+            }
+        },
+        "myLink2": {
+            "type": "link",
+            "data": {
+                "type": "internal",
+                "path": "",
+                "parameters": "",
+                "anchor": "",
+                "accesskey": "",
+                "rel": "",
+                "tabindex": "",
+                "target": "",
+                "class": "",
+                "attributes": ""
+            }
+        },
+        "myMultiselect": {
+            "type": "multiselect",
+            "data": []
+        },
+        "myNumeric": {
+            "type": "numeric",
+            "data": null
+        },
+        "mySelect": {
+            "type": "select",
+            "data": null
+        },
+        "myTable": {
+            "type": "table",
+            "data": [
+                [
+                    " "
+                ]
+            ]
+        },
+        "myTextarea": {
+            "type": "textarea",
+            "data": "Dear %Text(firstName)"
+        },
+        "myWysiwyg": {
+            "type": "wysiwyg",
+            "data": ""
+        }
+    },
+    "properties": [],
+    "settings": {
+        "module": "AppBundle",
+        "controller": "@AppBundle\\Controller\\DocumentController",
+        "action": "default",
+        "template": "Document\/poc.html.twig",
+        "published": true,
+        "subject": "Test e-mail",
+        "from": "sender@example.com",
+        "replyTo": "reply@example.com",
+        "to": "recipient@example.com; otherrecipient@example.com",
+        "cc": "carboncopy@example.com",
+        "bcc": "blankcopy@example.com; otherblankcopy@example.com"
+    },
+    "dependencies": []
+}

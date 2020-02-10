@@ -1,0 +1,20 @@
+{
+    "realFullPath": "\/codecept-document-copier\/emails",
+    "type": "folder",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page"
+    },
+    "elements": null,
+    "properties": [],
+    "settings": {
+        "published": true
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/emails\/dear-foo",
+            "reason": "Child document"
+        }
+    ]
+}

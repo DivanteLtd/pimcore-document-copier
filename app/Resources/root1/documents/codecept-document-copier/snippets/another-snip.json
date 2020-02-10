@@ -1,0 +1,123 @@
+{
+    "realFullPath": "\/codecept-document-copier\/snippets\/another-snip",
+    "type": "snippet",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page",
+        "\/codecept-document-copier\/snippets": "folder"
+    },
+    "elements": {
+        "myCheckbox": {
+            "type": "checkbox",
+            "data": false
+        },
+        "myDate1": {
+            "type": "date",
+            "data": null
+        },
+        "myDate2": {
+            "type": "date",
+            "data": null
+        },
+        "myImage": {
+            "type": "image",
+            "data": {
+                "alt": "",
+                "cropPercent": null,
+                "cropWidth": null,
+                "cropHeight": null,
+                "cropTop": null,
+                "cropLeft": null,
+                "hotspots": null,
+                "marker": null,
+                "path": "\/codecept-document-copier\/my-dir\/my-asset.png"
+            }
+        },
+        "myInput": {
+            "type": "input",
+            "data": "Hello world from another snippet"
+        },
+        "myLink1": {
+            "type": "link",
+            "data": {
+                "type": "internal",
+                "path": "",
+                "parameters": "",
+                "anchor": "",
+                "accesskey": "",
+                "rel": "",
+                "tabindex": "",
+                "target": "",
+                "class": "",
+                "attributes": ""
+            }
+        },
+        "myLink2": {
+            "type": "link",
+            "data": {
+                "type": "internal",
+                "path": "",
+                "parameters": "",
+                "anchor": "",
+                "accesskey": "",
+                "rel": "",
+                "tabindex": "",
+                "target": "",
+                "class": "",
+                "attributes": ""
+            }
+        },
+        "myMultiselect": {
+            "type": "multiselect",
+            "data": []
+        },
+        "myNumeric": {
+            "type": "numeric",
+            "data": null
+        },
+        "mySelect": {
+            "type": "select",
+            "data": null
+        },
+        "mySnippet": {
+            "type": "snippet",
+            "data": "\/codecept-document-copier\/snippets\/snip"
+        },
+        "myTable": {
+            "type": "table",
+            "data": [
+                [
+                    " "
+                ]
+            ]
+        },
+        "myTextarea": {
+            "type": "textarea",
+            "data": ""
+        },
+        "myWysiwyg": {
+            "type": "wysiwyg",
+            "data": ""
+        }
+    },
+    "properties": [],
+    "settings": {
+        "module": "AppBundle",
+        "controller": "@AppBundle\\Controller\\DocumentController",
+        "action": "default",
+        "template": "Document\/poc.html.twig",
+        "published": true
+    },
+    "dependencies": [
+        {
+            "type": "asset",
+            "path": "\/codecept-document-copier\/my-dir\/my-asset.png",
+            "reason": "Element 'myImage' of type 'image'"
+        },
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/snippets\/snip",
+            "reason": "Element 'mySnippet' of type 'snippet'"
+        }
+    ]
+}

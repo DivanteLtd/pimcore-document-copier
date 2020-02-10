@@ -1,0 +1,6 @@
+.idea/
+tmp/
+composer.lock
+vendor/
+.phpunit.result.cache
+tests/_output

@@ -1,0 +1,68 @@
+{
+    "realFullPath": "\/codecept-document-copier\/links\/direct-link",
+    "type": "link",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page",
+        "\/codecept-document-copier\/links": "folder"
+    },
+    "elements": null,
+    "properties": {
+        "navigation_accesskey": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_anchor": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_class": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_exclude": {
+            "type": "bool",
+            "data": false,
+            "inheritable": false
+        },
+        "navigation_name": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_parameters": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_relation": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_tabindex": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        },
+        "navigation_target": {
+            "type": "text",
+            "data": null,
+            "inheritable": false
+        },
+        "navigation_title": {
+            "type": "text",
+            "data": "",
+            "inheritable": false
+        }
+    },
+    "settings": {
+        "published": true,
+        "linkType": "direct",
+        "_link": "https:\/\/example.com"
+    },
+    "dependencies": []
+}

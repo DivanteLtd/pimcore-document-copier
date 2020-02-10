@@ -1,0 +1,23 @@
+{
+    "realFullPath": "\/codecept-document-copier\/links\/internal-link",
+    "type": "link",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page",
+        "\/codecept-document-copier\/links": "folder"
+    },
+    "elements": null,
+    "properties": [],
+    "settings": {
+        "published": true,
+        "linkType": "internal",
+        "_link": "\/codecept-document-copier\/foo\/bar"
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/foo\/bar",
+            "reason": "Internal link"
+        }
+    ]
+}

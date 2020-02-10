@@ -1,0 +1,7 @@
+actor: UnitTester
+modules:
+    enabled:
+        - \Tests\Helper\Unit
+        - Symfony:
+            app_path: 'app/'
+            environment: 'test'

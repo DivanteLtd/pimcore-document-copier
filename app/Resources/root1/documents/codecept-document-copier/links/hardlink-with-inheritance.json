@@ -1,0 +1,24 @@
+{
+    "realFullPath": "\/codecept-document-copier\/links\/hardlink-with-inheritance",
+    "type": "hardlink",
+    "ancestors": {
+        "\/": "page",
+        "\/codecept-document-copier": "page",
+        "\/codecept-document-copier\/links": "folder"
+    },
+    "elements": null,
+    "properties": [],
+    "settings": {
+        "published": true,
+        "childrenFromSource": true,
+        "propertiesFromSource": true,
+        "_source": "\/codecept-document-copier\/foo\/bar"
+    },
+    "dependencies": [
+        {
+            "type": "document",
+            "path": "\/codecept-document-copier\/foo\/bar",
+            "reason": "Internal hardlink"
+        }
+    ]
+}
