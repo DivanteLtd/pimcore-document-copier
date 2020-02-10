@@ -1,93 +1,47 @@
 <?php
-namespace Tests\AppBundle\Service\DocumentCopier;
+/**
+ * @category    pimcore-document-copier
+ * @date        10/02/2020 14:54
+ * @author      Pascal Dunaj <pdunaj@divante.pl>
+ * @copyright   Copyright (c) 2020 Divante Ltd. (https://divante.co)
+ */
+
+declare(strict_types=1);
+
+namespace unit\DocumentCopierBundle\Service;
 
 use Codeception\Test\Unit;
-use Divante\DocumentCopierBundle\Command\DocumentImportCommand;
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
-use Divante\DocumentCopierBundle\Service\DependencyManager;
-use Divante\DocumentCopierBundle\Service\ExportService;
-use Divante\DocumentCopierBundle\Service\FileService;
 use Divante\DocumentCopierBundle\Service\ImportService;
 use Exception;
 use Monolog\Logger;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
-use Symfony\Component\Console\Tester\CommandTester;
+use Tests\UnitTester;
 
-
-class DocumentCopierTest extends Unit
+class ImportServiceTest extends Unit
 {
     /** @var ImportService */
     private $importService;
 
-    /** @var ExportService */
-    private $exportService;
-
-    /** @var DocumentImportCommand */
-    private $importCommand;
-
-    const JSON_PAGE = '/Resources/root1/documents/codecept-document-copier/foo/bar.json';
-
-    /**
-     * @throws Exception
-     */
-    protected function _before()
-    {
-        $documentRoot = Document::getByPath('/codecept-document-copier');
-
-        if ($documentRoot) {
-            $documentRoot->delete();
-        }
-
-        $assetRoot = Asset::getByPath('/codecept-document-copier');
-
-        if ($assetRoot) {
-            $assetRoot->delete();
-        }
-
-        $logger = $this->getMockBuilder(Logger::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $fileService = $this->construct(FileService::class, ['']);
-        $dependencyManager = $this->construct(DependencyManager::class, [$fileService]);
-
-        $this->importService = $this->construct(ImportService::class, [$logger]);
-        $this->exportService = $this->construct(ExportService::class, [$logger, $dependencyManager]);
-
-        $this->importCommand = $this->construct(
-            DocumentImportCommand::class,
-            [$this->importService, $fileService, '', $dependencyManager]
-        );
-    }
-
-    /**
-     * @throws Exception
-     */
-    protected function _after()
-    {
-        $documentRoot = Document::getByPath('/codecept-document-copier');
-
-        if ($documentRoot) {
-            $documentRoot->delete();
-        }
-
-        $assetRoot = Asset::getByPath('/codecept-document-copier');
-
-        if ($assetRoot) {
-            $assetRoot->delete();
-        }
-    }
+    const DOCUMENT_JSON_PATH = '/documents/codecept-document-copier/foo/bar.json';
+    const EMAIL_JSON_PATH = '/documents/codecept-document-copier/emails/dear-foo.json';
 
     /**
      * @throws Exception
      */
     public function testImport()
     {
-        $dto = PortableDocument::fromJson(file_get_contents(__DIR__ . self::JSON_PAGE));
-        /** @var Document\Page $document */
+        // given
+        $dto = PortableDocument::fromJson(
+            file_get_contents(UnitTester::getRootDirectory() . self::DOCUMENT_JSON_PATH)
+        );
+
+        // when
         $document = $this->importService->import($dto);
 
+        // then
+        /** @var Document\Page $document */
         $this->documentAssertions($document);
     }
 
@@ -96,6 +50,7 @@ class DocumentCopierTest extends Unit
      */
     public function testOverwrite()
     {
+        // given
         $doc1 = new Document\Page();
         $doc1->setKey('codecept-document-copier');
         $doc1->setParent(Document::getByPath('/'));
@@ -106,7 +61,7 @@ class DocumentCopierTest extends Unit
         $doc2->setParent($doc1);
         $doc2->save();
 
-        $doc3 = new Document\Page();
+        $doc3 = new Document\Page();  // this document will be overwritten
         $doc3->setKey('bar');
         $doc3->setParent($doc2);
         $doc3->setTitle('overwrite me');
@@ -117,10 +72,15 @@ class DocumentCopierTest extends Unit
         $doc3->setElement('myInput', $element);
         $doc3->save();
 
-        $dto = PortableDocument::fromJson(file_get_contents(__DIR__ . self::JSON_PAGE));
-        /** @var Document\Page $document */
+        $dto = PortableDocument::fromJson(
+            file_get_contents(UnitTester::getRootDirectory() . self::DOCUMENT_JSON_PATH)
+        );
+
+        // when
         $document = $this->importService->import($dto);
 
+        // then
+        /** @var Document\Page $document */
         $this->documentAssertions($document);
         $this->assertEquals('still here', $document->getProperty('my_property'));
     }
@@ -130,6 +90,7 @@ class DocumentCopierTest extends Unit
      */
     public function testOverwriteDifferentType()
     {
+        // given
         $doc1 = new Document\Page();
         $doc1->setKey('codecept-document-copier');
         $doc1->setParent(Document::getByPath('/'));
@@ -140,7 +101,7 @@ class DocumentCopierTest extends Unit
         $doc2->setParent($doc1);
         $doc2->save();
 
-        $doc3 = new Document\Snippet();
+        $doc3 = new Document\Snippet();  // this snippet will be changed to page and overwritten
         $doc3->setKey('bar');
         $doc3->setParent($doc2);
         $doc3->setProperty('navigation_name', 'text', 'overwrite me');
@@ -149,157 +110,57 @@ class DocumentCopierTest extends Unit
         $doc3->setElement('myInput', $element);
         $doc3->save();
 
-        $dto = PortableDocument::fromJson(file_get_contents(__DIR__ . self::JSON_PAGE));
-        /** @var Document\Page $document */
+        $dto = PortableDocument::fromJson(
+            file_get_contents(UnitTester::getRootDirectory() . self::DOCUMENT_JSON_PATH)
+        );
+
+        // when
         $document = $this->importService->import($dto);
 
+        // then
+        /** @var Document\Page $document */
         $this->documentAssertions($document);
     }
 
-    /**
-     * @throws Exception
-     */
-    public function testRoundTrip()
-    {
-        $paths = [
-            self::JSON_PAGE,
-            '/Resources/root1/documents/codecept-document-copier/snippets/snip.json',
-            '/Resources/root1/documents/codecept-document-copier/links/internal-link.json',
-            '/Resources/root1/documents/codecept-document-copier/links/hardlink-with-inheritance.json',
-            '/Resources/root1/documents/codecept-document-copier/emails/dear-foo.json',
-        ];
-
-        foreach ($paths as $path) {
-            $originalDto = PortableDocument::fromJson(file_get_contents(__DIR__ . $path));
-            $importedDocument = $this->importService->import($originalDto);
-
-            $exportedDto = $this->exportService->export($importedDocument);
-
-            $this->assertEmpty(
-                array_diff(
-                    json_decode(json_encode($originalDto), true),
-                    json_decode(json_encode($exportedDto), true)
-                )
-            );
-
-            $importedDocument->delete();
-            /** @var Document\Page $twiceImportedDocument */
-            $twiceImportedDocument = $this->importService->import($exportedDto);
-
-            if ($path === self::JSON_PAGE) {
-                $this->documentAssertions($twiceImportedDocument);
-            }
-        }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testInheritedProperties()
-    {
-        $dto = PortableDocument::fromJson(file_get_contents(__DIR__ . self::JSON_PAGE));
-        $document = $this->importService->import($dto);
-
-        $document->getParent()->setProperty('inheritablePropFromParent', 'text', 'ignore me', false, true);
-        $document->getParent()->setProperty('regularPropFromParent', 'text', 'ignore me', false, false);
-        $document->getParent()->save();
-
-        $exportedDto = $this->exportService->export($document);
-
-        $this->assertEquals(count($dto->getProperties()), count($exportedDto->getProperties()));
-    }
-
-    public function testImportWithDependencies()
-    {
-        $this->assertNull(Document::getByPath(FileServiceTest::DOCUMENT_PATH));
-        $this->assertNull(Asset::getByPath(FileServiceTest::ASSET_PATH));
-
-        foreach ([0, 1, 2, 10] as $recursveDepth) {
-            $commandTester = new CommandTester($this->importCommand);
-            $commandTester->execute([
-                '--path' => FileServiceTest::DOCUMENT_PATH,
-                '--root' => __DIR__ . '/Resources/root1',
-                '--recursiveDepth' => $recursveDepth,
-            ]);
-
-            $document = Document::getByPath(FileServiceTest::DOCUMENT_PATH);
-            $this->assertNotNull($document);
-
-            if ($recursveDepth > 0) {
-                $asset = Asset::getByPath(FileServiceTest::ASSET_PATH);
-                $this->assertNotNull($asset);
-            }
-
-            $this->documentAssertions($document, $recursveDepth);
-        }
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function testImportLinkDocuments()
-    {
-        $commandTester = new CommandTester($this->importCommand);
-        $commandTester->execute([
-            '--path' => '/codecept-document-copier/links',
-            '--root' => __DIR__ . '/Resources/root1',
-            '--recursiveDepth' => 3,
-        ]);
-
-        $document = Document::getByPath('/codecept-document-copier/links/internal-link');
-        $this->assertTrue($document instanceof Document\Link);
-        $this->assertTrue($document->getLinktype() === 'internal');
-        $linkedDocument = Document::getById($document->getInternal());
-        $this->assertEquals('/codecept-document-copier/foo/bar', $linkedDocument->getRealFullPath());
-
-        $document = Document::getByPath('/codecept-document-copier/links/direct-link');
-        $this->assertTrue($document instanceof Document\Link);
-        $this->assertTrue($document->getLinktype() === 'direct');
-        $this->assertEquals('https://example.com', $document->getLink());
-
-        $document = Document::getByPath('/codecept-document-copier/links/hardlink-with-inheritance');
-        $this->assertTrue($document instanceof Document\Hardlink);
-        $this->assertTrue($document->getChildrenFromSource());
-        $this->assertTrue($document->getPropertiesFromSource());
-        $linkedDocument = Document::getById($document->getSourceId());
-        $this->assertEquals('/codecept-document-copier/foo/bar', $linkedDocument->getRealFullPath());
-
-        $document = Document::getByPath('/codecept-document-copier/links/hardlink-without-inheritance');
-        $this->assertTrue($document instanceof Document\Hardlink);
-        $this->assertFalse($document->getChildrenFromSource());
-        $this->assertFalse($document->getPropertiesFromSource());
-        $linkedDocument = Document::getById($document->getSourceId());
-        $this->assertEquals('/codecept-document-copier/foo/bar', $linkedDocument->getRealFullPath());
-    }
 
     /**
      * @throws Exception
      */
     public function testImportEmail()
     {
+        // given
         $dto = PortableDocument::fromJson(
-            file_get_contents(__DIR__ . '/Resources/root1/documents/codecept-document-copier/emails/dear-foo.json')
+            file_get_contents(UnitTester::getRootDirectory() . self::EMAIL_JSON_PATH)
         );
-        /** @var Document\Email $document */
+
+        // when
         $document = $this->importService->import($dto);
 
+        // then
+        /** @var Document\Email $document */
         $this->assertTrue($document instanceof Document\Email);
         $this->assertEquals('/codecept-document-copier/emails/dear-foo', $document->getRealFullPath());
+
         $this->assertEquals('Test e-mail', $document->getSubject());
         $this->assertEquals('sender@example.com', $document->getFrom());
         $this->assertEquals('reply@example.com', $document->getReplyTo());
         $this->assertEquals('recipient@example.com; otherrecipient@example.com', $document->getTo());
         $this->assertEquals('carboncopy@example.com', $document->getCc());
         $this->assertEquals('blankcopy@example.com; otherblankcopy@example.com', $document->getBcc());
+
+        $this->assertNotNull($document->getElement('myInput'));
         $this->assertEquals('Hello world from e-mail', $document->getElement('myInput')->getData());
+        $this->assertNotNull($document->getElement('myTextarea'));
         $this->assertEquals('Dear %Text(firstName)', $document->getElement('myTextarea')->getData());
     }
 
     /**
+     * Contains assertions about entire document tree
+     *
      * @param Document\Page $document
      * @param int $dependenciesDepth
      */
-    private function documentAssertions(Document\Page $document, int $dependenciesDepth = 0)
+    public function documentAssertions(Document\Page $document, int $dependenciesDepth = 0)
     {
         // Document type and path
         $this->assertTrue($document instanceof Document\Page);
@@ -410,5 +271,27 @@ class DocumentCopierTest extends Unit
                 }
             }
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function _before()
+    {
+        UnitTester::cleanUp();
+
+        $logger = $this->getMockBuilder(Logger::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->importService = $this->construct(ImportService::class, [$logger]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function _after()
+    {
+        UnitTester::cleanUp();
     }
 }

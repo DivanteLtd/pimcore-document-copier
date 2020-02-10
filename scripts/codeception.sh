@@ -30,4 +30,4 @@ bin/console pimcore:migrations:migrate -n --allow-no-migration --env=test
 
 echo -e "\e[34m=> Run tests \e[0m"
 
-vendor/bin/codecept run --no-colors --coverage -c ./codeception.dist.yml
+vendor/bin/codecept run --coverage -c ./codeception.dist.yml

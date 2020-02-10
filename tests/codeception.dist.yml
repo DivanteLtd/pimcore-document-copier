@@ -8,8 +8,9 @@ paths:
     support: ./_support
     envs: ./_envs
 
+bootstrap: ./bootstrap.php
+
 settings:
-    bootstrap: ./bootstrap.php
     colors: true
 
 params:
