@@ -5,8 +5,8 @@ set -eu
 PROJECT_DIR="$( cd "$(dirname "$0")" ; pwd -P )/../tmp"
 DEPENDENCIES="$( cd "$(dirname "$0")" ; pwd -P )/dependencies.txt"
 
-PACKAGE_NAME="{bundle_name}"
-BUNDLE_NAME="{bundle_name_class}"
+PACKAGE_NAME="divante/pimcore-document-copier"
+BUNDLE_NAME="DocumentCopierBundle"
 
 CREATE_DB=${CREATE_DB-true}
 DB_HOST=${DB_HOST-localhost}

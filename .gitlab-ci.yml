@@ -72,8 +72,12 @@ phploc:
 
 ### Tests
 
-tests:
+codeception:
     stage: tests
     script:
         - ./scripts/install.sh
         - cd tmp/ && ./scripts/codecept.sh
+    artifacts:
+        paths:
+            - tests/_output/
+        expire_in: 2 days
