@@ -9,11 +9,6 @@ stages:
     - analysis
     - tests
 
-services:
-    - name: mysql:5.7
-      alias: mysql
-      command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-format=Barracuda, --innodb_large_prefix=1]
-
 variables:
     MYSQL_ROOT_PASSWORD: root
     MYSQL_DATABASE: pimcore_test
@@ -74,9 +69,19 @@ phploc:
 
 codeception:
     stage: tests
+    services:
+        - name: percona:5.7.21
+          alias: mysql
+          command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --innodb-file-format=Barracuda, --innodb_large_prefix=1]
+    variables:
+        MYSQL_DATABASE: database2
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: root
+        PIMCORE_ENVIRONMENT: test
     script:
-        - ./scripts/install.sh
-        - cd tmp/ && ./scripts/codecept.sh
+        - bash scripts/run-tests.sh
+        -
     artifacts:
         paths:
             - tests/_output/
