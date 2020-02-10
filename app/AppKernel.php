@@ -8,6 +8,8 @@
 
 declare(strict_types=1);
 
+use Divante\DocumentCopierBundle\DocumentCopierBundle;
+use Pimcore\HttpKernel\BundleCollection\BundleCollection;
 use Pimcore\Kernel;
 
 class AppKernel extends Kernel
@@ -15,9 +17,9 @@ class AppKernel extends Kernel
     /**
      * {@inheritdoc}
      */
-    public function registerBundlesToCollection(\Pimcore\HttpKernel\BundleCollection\BundleCollection $collection)
+    public function registerBundlesToCollection(BundleCollection $collection)
     {
-        $collection->addBundle(new \Divante\DocumentCopierBundle\DocumentCopierBundle());
+        $collection->addBundle(new DocumentCopierBundle());
     }
 
     /**

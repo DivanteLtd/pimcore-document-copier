@@ -1,0 +1,69 @@
+<div>
+    <h2>Input</h2>
+    {{ pimcore_input('myInput') }}
+</div>
+
+<div>
+    <h2>Textarea</h2>
+    {{ pimcore_textarea('myTextarea') }}
+</div>
+
+<div>
+    <h2>Wysiwyg</h2>
+    {{ pimcore_wysiwyg('myWysiwyg') }}
+</div>
+
+<div>
+    <h2>Checkbox</h2>
+    {{ pimcore_checkbox('myCheckbox') }}
+</div>
+
+<div>
+    <h2>Date</h2>
+    {{ pimcore_date('myDate1') }}<br>
+    {{ pimcore_date('myDate2', {'format': 'd.m.Y h:s'}) }}
+</div>
+
+<div>
+    <h2>Link</h2>
+    {{ pimcore_link('myLink1') }}<br>
+    {{ pimcore_link('myLink2') }}
+</div>
+
+<div>
+    <h2>Numeric</h2>
+    {{ pimcore_numeric('myNumeric') }}
+</div>
+
+<div>
+    <h2>Table</h2>
+    {{ pimcore_table('myTable') }}
+</div>
+
+<div>
+    <h2>Multiselect</h2>
+    {{ pimcore_multiselect('myMultiselect', {'store': [['a', 'Option A'], ['b', 'Option B']]}) }}
+</div>
+
+<div>
+    <h2>Select</h2>
+    {{ pimcore_select('mySelect', {'store': [['a', 'Option A'], ['b', 'Option B']]}) }}
+</div>
+
+<div>
+    <h2>Image</h2>
+    {{ pimcore_image('myImage') }}
+</div>
+
+<div>
+    <h2>Snippet</h2>
+    {{ pimcore_snippet('mySnippet', {"width": 250, "height": 100}) }}
+</div>
+
+<div>
+    <h2>Block</h2>
+    {% for i in pimcore_iterate_block(pimcore_block('myBlock')) %}
+        <h3>{{ pimcore_input('heading') }}</h3>
+        <p>{{ pimcore_textarea('content') }}</p>
+    {% endfor %}
+</div>

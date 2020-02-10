@@ -5,6 +5,15 @@ services:
         public: false
 
     #
+    # Controllers
+    #
+
+    Divante\DocumentCopierBundle\Controller\:
+        resource: '../../Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    #
     # Commands
     #
 
