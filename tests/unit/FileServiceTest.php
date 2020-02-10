@@ -20,13 +20,13 @@ use Symfony\Component\Filesystem\Exception\IOException;
 
 class FileServiceTest extends Unit
 {
+    /** @var FileService */
+    private $fileService;
+
     const DOCUMENT_PATH = '/codecept-document-copier/foo/bar';
     const ASSET_PATH = '/codecept-document-copier/my-dir/my-asset.png';
     const ROOT = __DIR__ . '/Resources/root1';
     const NEW_ROOT = __DIR__ . '/Resources/test_root1';
-
-    /** @var FileService */
-    private $fileService;
 
     /**
      * @throws Exception
