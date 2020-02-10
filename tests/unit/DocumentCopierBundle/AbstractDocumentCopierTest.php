@@ -52,18 +52,7 @@ abstract class AbstractDocumentCopierTest extends Unit
     {
         $dir = $this->getNewRootDirectory();
 
-        if (!is_dir($dir)) {
-            return;
-        }
-
-        $directoryIterator = new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS);
-        $recursiveIterator = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::CHILD_FIRST);
-
-        foreach ($recursiveIterator as $file) {
-            $file->isDir() ? rmdir($file) : unlink($file);
-        }
-
-        rmdir($dir);
+        system("rm -rf " . escapeshellarg($dir));
 
         if (is_dir($dir)) {
             throw new RuntimeException('Could not delete directory ' . $dir);
