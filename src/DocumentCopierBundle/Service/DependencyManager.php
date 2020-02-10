@@ -278,7 +278,8 @@ class DependencyManager
      * @param array $dependencies
      * @return array
      */
-    private function sortDependencies(array $dependencies): array {
+    private function sortDependencies(array $dependencies): array
+    {
         usort(
             $dependencies,
             function ($dependency, $otherDependency) {
