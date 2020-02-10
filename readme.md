@@ -13,17 +13,18 @@ Pimcore bundle for copying documents between environments
 	- [About Authors](#about-authors)
 
 ## Compatibility
-This module was tested on Pimcore 6.1.2.
+This module was tested on Pimcore 6.1.2 @ PHP 7.3.
 
 ## Installing/Getting started
 
+Install:
 ```bash
-composer require divante/pimcore-document-copier
+composer require divante/pimcore-document-copier  # SOON™
 ```
 
-Enable the Bundle:
+Enable the bundle:
 ```bash
-./bin/console pimcore:bundle:enable DocumentCopierBundle
+bin/console pimcore:bundle:enable DocumentCopierBundle
 ```
 
 ## Testing

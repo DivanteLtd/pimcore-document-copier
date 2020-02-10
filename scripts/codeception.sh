@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ls -lah
-
 echo -e "\e[34m=> Install packages \e[0m"
 php -d memory_limit=-1 /usr/bin/composer install --no-interaction --prefer-dist
 
@@ -24,8 +22,6 @@ vendor/pimcore/pimcore/bin/pimcore-install \
     --no-interaction \
     --ignore-existing-config
 
-
-bin/console pimcore:bundle:enable DocumentCopierBundle -n
 bin/console pimcore:migrations:migrate -n --allow-no-migration --env=test
 
 echo -e "\e[34m=> Run tests \e[0m"

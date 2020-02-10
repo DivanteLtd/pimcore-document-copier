@@ -10,28 +10,22 @@ declare(strict_types=1);
 
 namespace Tests\AppBundle\Service\DocumentCopier;
 
-use Codeception\Test\Unit;
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
 use Divante\DocumentCopierBundle\Service\FileService;
 use Exception;
 use Pimcore\Model\Asset;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Tests\UnitTester;
+use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
 
-class FileServiceTest extends Unit
+class FileServiceTest extends AbstractDocumentCopierTest
 {
     /** @var FileService */
     private $fileService;
 
-    const DOCUMENT_PATH = '/codecept-document-copier/foo/bar';
-    const INVALID_DOCUMENT_PATH = '/codecept-document-copier/foo/not-bar';
-    const ASSET_PATH = '/codecept-document-copier/my-dir/my-asset.png';
-    const INVALID_ASSET_PATH = '/codecept-document-copier/my-dir/not-my-asset.png';
-
     public function testLoadDocument()
     {
         // when
-        $dto = $this->fileService->loadDto(self::DOCUMENT_PATH, UnitTester::getRootDirectory());
+        $dto = $this->fileService->loadDto(self::DOCUMENT_PATH, $this->getRootDirectory());
 
         // then
         $this->assertEquals(self::DOCUMENT_PATH, $dto->getRealFullPath());
@@ -48,13 +42,13 @@ class FileServiceTest extends Unit
         $this->assertNull(Asset::getByPath(self::ASSET_PATH));
 
         // when
-        $asset = $this->fileService->loadAsset(self::ASSET_PATH, UnitTester::getRootDirectory());
+        $asset = $this->fileService->loadAsset(self::ASSET_PATH, $this->getRootDirectory());
 
         // then
         $this->assertNotNull(Asset::getByPath(self::ASSET_PATH));
         $this->assertEquals(self::ASSET_PATH, $asset->getFullPath());
         $this->assertEquals(
-            file_get_contents(UnitTester::getRootDirectory() . '/assets' . self::ASSET_PATH),
+            file_get_contents($this->getRootDirectory() . '/assets' . self::ASSET_PATH),
             $asset->getData()
         );
     }
@@ -63,7 +57,7 @@ class FileServiceTest extends Unit
     {
         try {
             // when
-            $this->fileService->loadDto(self::INVALID_DOCUMENT_PATH, UnitTester::getRootDirectory());
+            $this->fileService->loadDto(self::INVALID_DOCUMENT_PATH, $this->getRootDirectory());
 
             $this->assertTrue(false);  // unreachable
         } catch (IOException $e) {
@@ -79,7 +73,7 @@ class FileServiceTest extends Unit
     {
         try {
             // when
-            $this->fileService->loadAsset(self::INVALID_ASSET_PATH, UnitTester::getRootDirectory());
+            $this->fileService->loadAsset(self::INVALID_ASSET_PATH, $this->getRootDirectory());
 
             $this->assertTrue(false);  // unreachable
         } catch (IOException $e) {
@@ -91,25 +85,25 @@ class FileServiceTest extends Unit
     public function testSaveDocument()
     {
         // given
-        $this->assertNotEmpty(file_get_contents(UnitTester::getRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json'));
+        $this->assertNotEmpty(file_get_contents($this->getRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json'));
 
         $dto = PortableDocument::fromJson(
-            file_get_contents(UnitTester::getRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json')
+            file_get_contents($this->getRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json')
         );
 
-        $expectedFilePath = UnitTester::getNewRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json';
+        $expectedFilePath = $this->getNewRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json';
         $this->assertFalse(is_readable($expectedFilePath));
 
         // when
-        $filePath = $this->fileService->saveDto($dto, UnitTester::getNewRootDirectory());
+        $filePath = $this->fileService->saveDto($dto, $this->getNewRootDirectory());
 
         // then
         $this->assertEquals($expectedFilePath, $filePath);
         $this->assertTrue(is_readable($expectedFilePath));
         $this->assertEmpty(
-            UnitTester::jsonDiff(
-                file_get_contents(UnitTester::getRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json'),
-                file_get_contents(UnitTester::getNewRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json')
+            $this->jsonDiff(
+                file_get_contents($this->getRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json'),
+                file_get_contents($this->getNewRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json')
             )
         );
     }
@@ -120,21 +114,21 @@ class FileServiceTest extends Unit
     public function testSaveAsset()
     {
         // given
-        $asset = $this->fileService->loadAsset(self::ASSET_PATH, UnitTester::getRootDirectory());
+        $asset = $this->fileService->loadAsset(self::ASSET_PATH, $this->getRootDirectory());
         $this->assertNotNull($asset);
 
-        $expectedFilePath = UnitTester::getNewRootDirectory(). '/assets' . self::ASSET_PATH;
+        $expectedFilePath = $this->getNewRootDirectory(). '/assets' . self::ASSET_PATH;
         $this->assertFalse(is_readable($expectedFilePath));
 
         // when
-        $filePath = $this->fileService->saveAsset($asset, UnitTester::getNewRootDirectory());
+        $filePath = $this->fileService->saveAsset($asset, $this->getNewRootDirectory());
 
         // then
         $this->assertEquals($expectedFilePath, $filePath);
         $this->assertTrue(is_readable($expectedFilePath));
 
         $this->assertEquals(
-            file_get_contents(UnitTester::getRootDirectory() . '/assets' . self::ASSET_PATH),
+            file_get_contents($this->getRootDirectory() . '/assets' . self::ASSET_PATH),
             file_get_contents($expectedFilePath)
         );
     }
@@ -142,15 +136,15 @@ class FileServiceTest extends Unit
     public function testDocumentRoundTrip()
     {
         // given
-        $initialJson = file_get_contents(UnitTester::getRootDirectory(). '/documents' . self::DOCUMENT_PATH . '.json');
+        $initialJson = file_get_contents($this->getRootDirectory(). '/documents' . self::DOCUMENT_PATH . '.json');
 
         // when
-        $loadedDto = $this->fileService->loadDto(self::DOCUMENT_PATH, UnitTester::getRootDirectory());
-        $this->fileService->saveDto($loadedDto, UnitTester::getNewRootDirectory());
+        $loadedDto = $this->fileService->loadDto(self::DOCUMENT_PATH, $this->getRootDirectory());
+        $this->fileService->saveDto($loadedDto, $this->getNewRootDirectory());
 
         // then
-        $resavedJson = file_get_contents(UnitTester::getNewRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json');
-        $this->assertEmpty(UnitTester::jsonDiff($initialJson, $resavedJson));
+        $resavedJson = file_get_contents($this->getNewRootDirectory() . '/documents' . self::DOCUMENT_PATH . '.json');
+        $this->assertEmpty($this->jsonDiff($initialJson, $resavedJson));
     }
 
     /**
@@ -158,7 +152,7 @@ class FileServiceTest extends Unit
      */
     protected function _before()
     {
-        UnitTester::cleanUp();
+        $this->cleanUp();
         $this->fileService = $this->construct(FileService::class, ['']);
     }
 
@@ -167,6 +161,6 @@ class FileServiceTest extends Unit
      */
     protected function _after()
     {
-        UnitTester::cleanUp();
+        $this->cleanUp();
     }
 }

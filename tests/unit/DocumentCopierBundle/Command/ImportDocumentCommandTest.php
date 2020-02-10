@@ -8,9 +8,8 @@
 
 declare(strict_types=1);
 
-namespace unit\DocumentCopierBundle\Command;
+namespace Tests\DocumentCopierBundle\Command;
 
-use Codeception\Test\Unit;
 use Divante\DocumentCopierBundle\Command\DocumentImportCommand;
 use Divante\DocumentCopierBundle\Service\DependencyManager;
 use Divante\DocumentCopierBundle\Service\FileService;
@@ -20,11 +19,9 @@ use Monolog\Logger;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Symfony\Component\Console\Tester\CommandTester;
-use Tests\AppBundle\Service\DocumentCopier\FileServiceTest;
-use Tests\UnitTester;
-use unit\DocumentCopierBundle\Service\ImportServiceTest;
+use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
 
-class ImportDocumentCommandTest extends Unit
+class ImportDocumentCommandTest extends AbstractDocumentCopierTest
 {
     /** @var DocumentImportCommand */
     private $importCommand;
@@ -32,28 +29,28 @@ class ImportDocumentCommandTest extends Unit
     public function testImportWithDependencies()
     {
         // given
-        $this->assertNull(Document::getByPath(FileServiceTest::DOCUMENT_PATH));
-        $this->assertNull(Asset::getByPath(FileServiceTest::ASSET_PATH));
+        $this->assertNull(Document::getByPath(self::DOCUMENT_PATH));
+        $this->assertNull(Asset::getByPath(self::ASSET_PATH));
 
         foreach ([0, 1, 2, 10] as $recursveDepth) {
             // when
             $commandTester = new CommandTester($this->importCommand);
             $commandTester->execute([
-                '--path' => FileServiceTest::DOCUMENT_PATH,
-                '--root' => __DIR__ . '/Resources/root1',
+                '--path' => self::DOCUMENT_PATH,
+                '--root' => $this->getRootDirectory() . '/Resources/root1',
                 '--recursiveDepth' => $recursveDepth,
             ]);
 
             // then
-            $document = Document::getByPath(FileServiceTest::DOCUMENT_PATH);
+            $document = Document::getByPath(self::DOCUMENT_PATH);
             $this->assertNotNull($document);
 
             if ($recursveDepth > 0) {
-                $asset = Asset::getByPath(FileServiceTest::ASSET_PATH);
+                $asset = Asset::getByPath(self::ASSET_PATH);
                 $this->assertNotNull($asset);
             }
 
-            (new ImportServiceTest())->documentAssertions($document, $recursveDepth);
+            $this->documentAssertions($document, $recursveDepth);
         }
     }
 
@@ -66,7 +63,7 @@ class ImportDocumentCommandTest extends Unit
         $commandTester = new CommandTester($this->importCommand);
         $commandTester->execute([
             '--path' => '/codecept-document-copier/links',
-            '--root' => __DIR__ . '/Resources/root1',
+            '--root' => $this->getRootDirectory() . '/Resources/root1',
             '--recursiveDepth' => 3,
         ]);
 
@@ -102,7 +99,7 @@ class ImportDocumentCommandTest extends Unit
      */
     protected function _before()
     {
-        UnitTester::cleanUp();
+        $this->cleanUp();
 
         $logger = $this->getMockBuilder(Logger::class)
             ->disableOriginalConstructor()
@@ -123,6 +120,6 @@ class ImportDocumentCommandTest extends Unit
      */
     protected function _after()
     {
-        UnitTester::cleanUp();
+        $this->cleanUp();
     }
 }

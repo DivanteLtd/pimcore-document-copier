@@ -8,9 +8,8 @@
 
 declare(strict_types=1);
 
-namespace unit\DocumentCopierBundle\Service;
+namespace Tests\DocumentCopierBundle\Service;
 
-use Codeception\Test\Unit;
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
 use Divante\DocumentCopierBundle\Service\DependencyManager;
 use Divante\DocumentCopierBundle\Service\ExportService;
@@ -19,20 +18,15 @@ use Divante\DocumentCopierBundle\Service\ImportService;
 use Exception;
 use Monolog\Logger;
 use Pimcore\Model\Document\Page;
-use Tests\UnitTester;
+use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
 
-class ExportServiceTest extends Unit
+class ExportServiceTest extends AbstractDocumentCopierTest
 {
     /** @var ImportService */
     private $importService;
 
     /** @var ExportService */
     private $exportService;
-
-    const DOCUMENT_JSON_PATH = '/documents/codecept-document-copier/foo/bar.json';
-    const LINK_JSON_PATH = '/documents/codecept-document-copier/links/internal-link.json';
-    const HARDLINK_JSON_PATH = '/documents/codecept-document-copier/links/hardlink-with-inheritance.json';
-    const EMAIL_JSON_PATH = '/documents/codecept-document-copier/emails/dear-foo.json';
 
     /**
      * @throws Exception
@@ -41,7 +35,7 @@ class ExportServiceTest extends Unit
     {
         // given
         $dto = PortableDocument::fromJson(
-            file_get_contents(UnitTester::getRootDirectory() . self::DOCUMENT_JSON_PATH)
+            file_get_contents($this->getRootDirectory() . self::DOCUMENT_JSON_PATH)
         );
         $document = $this->importService->import($dto);
 
@@ -66,7 +60,7 @@ class ExportServiceTest extends Unit
         foreach ($paths as $path) {
             // given
             $originalDto = PortableDocument::fromJson(
-                file_get_contents(UnitTester::getRootDirectory() . $path)
+                file_get_contents($this->getRootDirectory() . $path)
             );
             $importedDocument = $this->importService->import($originalDto);
 
@@ -74,7 +68,7 @@ class ExportServiceTest extends Unit
             $exportedDto = $this->exportService->export($importedDocument);
 
             // then
-            $this->assertEmpty(UnitTester::jsonDiff(json_encode($originalDto), json_encode($exportedDto)));
+            $this->assertEmpty($this->jsonDiff(json_encode($originalDto), json_encode($exportedDto)));
 
             if ($path === self::DOCUMENT_JSON_PATH) {
                 // and when
@@ -83,7 +77,7 @@ class ExportServiceTest extends Unit
 
                 // then
                 /** @var Page $twiceImportedDocument */
-                (new ImportServiceTest())->documentAssertions($twiceImportedDocument);
+                $this->documentAssertions($twiceImportedDocument);
             }
         }
     }
@@ -93,7 +87,7 @@ class ExportServiceTest extends Unit
      */
     protected function _before()
     {
-        UnitTester::cleanUp();
+        $this->cleanUp();
 
         $logger = $this->getMockBuilder(Logger::class)
             ->disableOriginalConstructor()
@@ -110,6 +104,6 @@ class ExportServiceTest extends Unit
      */
     protected function _after()
     {
-        UnitTester::cleanUp();
+        $this->cleanUp();
     }
 }
