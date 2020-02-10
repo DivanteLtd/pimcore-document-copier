@@ -17,6 +17,10 @@ use Pimcore\Model\Document;
 use Pimcore\Model\Document\PageSnippet;
 use Pimcore\Model\Document\Tag;
 
+/**
+ * Class Image
+ * @package Divante\DocumentCopierBundle\ElementSerializer
+ */
 class Image extends GenericType
 {
     /**

@@ -12,6 +12,10 @@ namespace Divante\DocumentCopierBundle\Exception;
 
 use Exception;
 
+/**
+ * Class InvalidElementTypeException
+ * @package Divante\DocumentCopierBundle\Exception
+ */
 class InvalidElementTypeException extends Exception
 {
 

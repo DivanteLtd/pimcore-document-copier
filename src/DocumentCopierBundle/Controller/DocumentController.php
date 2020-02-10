@@ -12,6 +12,10 @@ namespace Divante\DocumentCopierBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class DocumentController
+ * @package Divante\DocumentCopierBundle\Controller
+ */
 class DocumentController
 {
     /**

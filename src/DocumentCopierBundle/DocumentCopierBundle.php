@@ -11,6 +11,10 @@ namespace Divante\DocumentCopierBundle;
 use Pimcore\Extension\Bundle\Traits\PackageVersionTrait;
 use Pimcore\Extension\Bundle\AbstractPimcoreBundle;
 
+/**
+ * Class DocumentCopierBundle
+ * @package Divante\DocumentCopierBundle
+ */
 class DocumentCopierBundle extends AbstractPimcoreBundle
 {
     use PackageVersionTrait;

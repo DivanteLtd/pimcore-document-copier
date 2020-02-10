@@ -1,9 +1,8 @@
 #!/bin/bash
 
 echo -e "\e[34m=> Install packages \e[0m"
-pwd
 
-php -d memory_limit=-1 /usr/bin/composer install --no-interaction --prefer-dist --quiet
+php -d memory_limit=-1 /usr/bin/composer install --no-interaction --prefer-dist
 
 echo -e "\e[34m=> Install pimcore \e[0m"
 

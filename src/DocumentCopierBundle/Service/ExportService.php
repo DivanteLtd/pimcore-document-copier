@@ -20,6 +20,10 @@ use Pimcore\Model\Document\Tag;
 use Psr\Log\LoggerInterface;
 use Pimcore\Model\Element\Service as ElementService;
 
+/**
+ * Class ExportService
+ * @package Divante\DocumentCopierBundle\Service
+ */
 class ExportService
 {
     /** @var LoggerInterface */

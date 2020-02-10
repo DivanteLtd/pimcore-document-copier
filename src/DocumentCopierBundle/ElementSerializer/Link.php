@@ -13,6 +13,10 @@ namespace Divante\DocumentCopierBundle\ElementSerializer;
 use Divante\DocumentCopierBundle\Exception\InvalidElementTypeException;
 use Pimcore\Model\Document\Tag;
 
+/**
+ * Class Link
+ * @package Divante\DocumentCopierBundle\ElementSerializer
+ */
 class Link extends GenericType
 {
     /**

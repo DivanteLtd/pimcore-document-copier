@@ -17,6 +17,11 @@ use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Psr\Log\LoggerInterface;
 
+
+/**
+ * Class ImportService
+ * @package Divante\DocumentCopierBundle\Service
+ */
 class ImportService
 {
     /** @var LoggerInterface */

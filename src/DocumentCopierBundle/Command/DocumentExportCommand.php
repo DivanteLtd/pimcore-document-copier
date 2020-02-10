@@ -22,6 +22,10 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 
+/**
+ * Class DocumentExportCommand
+ * @package Divante\DocumentCopierBundle\Command
+ */
 class DocumentExportCommand extends ContainerAwareCommand
 {
     /** @var ExportService */

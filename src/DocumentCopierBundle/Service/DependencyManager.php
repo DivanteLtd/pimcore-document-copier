@@ -18,6 +18,10 @@ use Pimcore\Model\Asset\Image;
 use Pimcore\Model\Document;
 use Pimcore\Model\Document\Tag;
 
+/**
+ * Class DependencyManager
+ * @package Divante\DocumentCopierBundle\Service
+ */
 class DependencyManager
 {
     /** @var FileService */

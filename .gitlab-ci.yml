@@ -80,8 +80,7 @@ codeception:
         MYSQL_ROOT_PASSWORD: root
         PIMCORE_ENVIRONMENT: test
     script:
-        - bash scripts/run-tests.sh
-        -
+        - bash scripts/codeception.sh
     artifacts:
         paths:
             - tests/_output/

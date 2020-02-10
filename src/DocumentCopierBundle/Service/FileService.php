@@ -16,6 +16,10 @@ use InvalidArgumentException;
 use Pimcore\Model\Asset;
 use Symfony\Component\Filesystem\Exception\IOException;
 
+/**
+ * Class FileService
+ * @package Divante\DocumentCopierBundle\Service
+ */
 class FileService
 {
     const DOCUMENTS_DIRECTORY = 'documents';

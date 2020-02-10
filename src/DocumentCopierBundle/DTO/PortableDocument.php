@@ -13,6 +13,10 @@ namespace Divante\DocumentCopierBundle\DTO;
 use InvalidArgumentException;
 use JsonSerializable;
 
+/**
+ * Class PortableDocument
+ * @package Divante\DocumentCopierBundle\DTO
+ */
 class PortableDocument implements JsonSerializable
 {
     const SUPPORTED_DOCUMENT_TYPES = [

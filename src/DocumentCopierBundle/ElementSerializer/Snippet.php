@@ -16,6 +16,10 @@ use Pimcore\Model\Document\PageSnippet;
 use Pimcore\Model\Document\Snippet as DocumentSnippet;
 use Pimcore\Model\Document\Tag;
 
+/**
+ * Class Snippet
+ * @package Divante\DocumentCopierBundle\ElementSerializer
+ */
 class Snippet extends GenericType
 {
     /**

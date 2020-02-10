@@ -15,6 +15,10 @@ use Pimcore\Model\Document;
 use Pimcore\Model\Document\PageSnippet;
 use Pimcore\Model\Document\Tag;
 
+/**
+ * Class Date
+ * @package Divante\DocumentCopierBundle\ElementSerializer
+ */
 class Date extends GenericType
 {
     /**
