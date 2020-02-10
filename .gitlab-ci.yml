@@ -70,6 +70,9 @@ codeception:
         MYSQL_ROOT_PASSWORD: root
         PIMCORE_ENVIRONMENT: test
     script:
+        - pwd
+        - ls -lah app/Resources/test_root/documents/codecept-document-copier/foo
+        - ls -lah /builds/project-0/tests/unit/DocumentCopierBundle/../../../app/Resources/test_root/documents/codecept-document-copier/foo
         - bash scripts/codeception.sh
     artifacts:
         paths:

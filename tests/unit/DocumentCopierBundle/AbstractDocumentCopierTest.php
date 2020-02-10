@@ -36,7 +36,7 @@ abstract class AbstractDocumentCopierTest extends Unit
      */
     protected function getRootDirectory(): string
     {
-        return __DIR__ . '/../../app/Resources/test_root';
+        return __DIR__ . '/../../../app/Resources/test_root';
     }
 
     /**
@@ -44,7 +44,7 @@ abstract class AbstractDocumentCopierTest extends Unit
      */
     protected function getNewRootDirectory(): string
     {
-        return __DIR__ . '/../../app/Resources/new_root';
+        return __DIR__ . '/../../../app/Resources/new_root';
     }
 
     /**  */
