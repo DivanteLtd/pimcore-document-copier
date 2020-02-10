@@ -9,16 +9,6 @@ stages:
     - analysis
     - tests
 
-variables:
-    MYSQL_ROOT_PASSWORD: root
-    MYSQL_DATABASE: pimcore_test
-    CREATE_DB: "false"
-    DB_HOST: mysql
-    DB_PORT: ""
-    PIMCORE_ENVIRONMENT: test
-    PIMCORE_TEST: "1"
-    PIMCORE_TEST_DB_DSN: mysql://root:root@mysql/pimcore_test
-
 before_script:
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php --install-dir=/usr/bin --filename=composer
