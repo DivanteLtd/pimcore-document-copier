@@ -79,21 +79,7 @@ class DependencyManager
             }
         }
 
-        usort(
-            $foundDependencies,
-            function ($a, $b) {
-                // Assets before documents, short paths before long paths
-                if ($a['type'] === 'document' && $b['type'] !== 'document') {
-                    return 1;
-                } elseif ($a['type'] !== 'document' && $b['type'] === 'document') {
-                    return -1;
-                } else {
-                    return strlen($a['path']) <=> strlen($b['path']);
-                }
-            }
-        );
-
-        return $foundDependencies;
+        return $this->sortDependencies($foundDependencies);
     }
 
     /**
@@ -270,7 +256,7 @@ class DependencyManager
         array $foundDependencies,
         string $foundPath
     ): array {
-        $uniqueNewDependencies = [];
+        $uniqueDependencies = [];
 
         foreach ($newDependencies as $dependencyDto) {
             $duplicates = array_filter(
@@ -281,10 +267,32 @@ class DependencyManager
             );
 
             if (empty($duplicates) && $dependencyDto['path'] !== $foundPath) {
-                $uniqueNewDependencies[] = $dependencyDto;
+                $uniqueDependencies[] = $dependencyDto;
             }
         }
 
-        return $uniqueNewDependencies;
+        return $uniqueDependencies;
+    }
+
+    /**
+     * @param array $dependencies
+     * @return array
+     */
+    private function sortDependencies(array $dependencies): array {
+        usort(
+            $dependencies,
+            function ($dependency, $otherDependency) {
+                // Assets before documents, short paths before long paths
+                if ($dependency['type'] === 'document' && $otherDependency['type'] !== 'document') {
+                    return 1;
+                } elseif ($dependency['type'] !== 'document' && $otherDependency['type'] === 'document') {
+                    return -1;
+                } else {
+                    return strlen($dependency['path']) <=> strlen($otherDependency['path']);
+                }
+            }
+        );
+
+        return $dependencies;
     }
 }

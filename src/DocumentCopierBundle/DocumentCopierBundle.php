@@ -38,5 +38,4 @@ class DocumentCopierBundle extends AbstractPimcoreBundle
     {
         return 'Pimcore bundle for copying documents between environments';
     }
-
 }

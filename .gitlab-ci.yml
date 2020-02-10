@@ -1,4 +1,4 @@
-image: registry-1.divante.pl:5000/snippety-zaglady/php:7.1-cli
+image: divante/pimcore5-php:7.3-fpm
 
 cache:
     key: "${CI_PROJECT_ID}-${CI_JOB_NAME}"
@@ -46,7 +46,7 @@ phpmd:
     script:
         - composer global require "phpmd/phpmd":"^2.6" --no-interaction --prefer-dist --ignore-platform-reqs --quiet
         - composer global require "divante-ltd/pimcore-coding-standards":"^0.1" --no-interaction --prefer-dist --ignore-platform-reqs --quiet
-        - /root/.composer/vendor/bin/phpmd src text /root/.composer/vendor/divante-ltd/pimcore-coding-standards/Standards/Pimcore5/rulesetmd.xml
+        - /root/.composer/vendor/bin/phpmd src text ./rulesetmd.xml
     allow_failure: true
 
 phpcpd:
