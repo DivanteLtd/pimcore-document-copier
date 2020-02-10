@@ -37,7 +37,7 @@ class ImportDocumentCommandTest extends AbstractDocumentCopierTest
             $commandTester = new CommandTester($this->importCommand);
             $commandTester->execute([
                 '--path' => self::DOCUMENT_PATH,
-                '--root' => $this->getRootDirectory() . '/Resources/root1',
+                '--root' => $this->getRootDirectory(),
                 '--recursiveDepth' => $recursveDepth,
             ]);
 
@@ -63,7 +63,7 @@ class ImportDocumentCommandTest extends AbstractDocumentCopierTest
         $commandTester = new CommandTester($this->importCommand);
         $commandTester->execute([
             '--path' => '/codecept-document-copier/links',
-            '--root' => $this->getRootDirectory() . '/Resources/root1',
+            '--root' => $this->getRootDirectory(),
             '--recursiveDepth' => 3,
         ]);
 
