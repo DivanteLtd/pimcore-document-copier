@@ -58,7 +58,7 @@ bin/console document-copier:export --path=PATH --root[=ROOT] --recursiveDepth[=R
 Options:
 *  `--path=PATH` **Document path** \
 Full path to the document as in admin panel
-*  `--root[=ROOT]` **Resources root** [default: `app/Resources`"] \
+*  `--root[=ROOT]` **Resources root** [default: `app/Resources`] \
 Exported JSONs and assets will be saved to this directory \
 Leave this parameter as default unless you need to keep different versions of documents
 *  `--recursiveDepth[=RECURSIVEDEPTH]` **Max depth of dependency tree** [default: `0`] \
@@ -77,11 +77,11 @@ bin/console document-copier:import --path=PATH --root[=ROOT] --recursiveDepth[=R
 Options:
 *  `--path=PATH` **Document path** \
 *Same as in export command*
-*  `--root[=ROOT]` **Resources root** [default: "app/Resources"] \
+*  `--root[=ROOT]` **Resources root** [default: `app/Resources`] \
 JSONs and assets will be loaded from this directory. \
 File structure in this directory must reflect document and asset trees as in admin panel. \
 Leave this parameter as default unless you need to keep different versions of documents
-*  `--recursiveDepth[=RECURSIVEDEPTH]` **Max depth of dependency tree** [default: 0] \
+*  `--recursiveDepth[=RECURSIVEDEPTH]` **Max depth of dependency tree** [default: `0`] \
 *Same as in export command*
 
 
