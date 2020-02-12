@@ -178,10 +178,10 @@
     "settings": {
         "title": "My Title",
         "description": "\u017b\u00f3\u0142\u0107",
-        "module": "AppBundle",
-        "controller": "@AppBundle\\Controller\\DocumentController",
+        "module": "DocumentCopierBundle",
+        "controller": "@Divante\\DocumentCopierBundle\\Controller\\DocumentController",
         "action": "default",
-        "template": "Document\/poc.html.twig",
+        "template": "DocumentCopierBundle:Document:poc.html.twig",
         "published": true,
         "prettyUrl": "\/myprettyurl"
     },

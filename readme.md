@@ -5,7 +5,7 @@ Pimcore bundle for copying documents between environments
 - [Pimcore Document Copier](#pimcore-document-copier)
 	- [Compatibility](#compatibility)
 	- [Installing/Getting started](#installinggetting-started)
-	- [Configuration](#configuration)
+	- [Usage](#usage)
 	- [Testing](#testing)
 	- [Contributing](#contributing)
 	- [Licence](#licence)
@@ -17,15 +17,37 @@ This module was tested on Pimcore 6.1.2 @ PHP 7.3.
 
 ## Installing/Getting started
 
-Install:
+Add repository to your project's composer.json:
+```json
+{
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "ssh://git@gitlab.divante.pl:60022/pdunaj/pimcore-document-copier.git"
+        }
+      ]
+}
+```
+
+Install latest version from repo:
 ```bash
-composer require divante/pimcore-document-copier  # SOON™
+composer require divante/pimcore-document-copier:dev-master
 ```
 
 Enable the bundle:
 ```bash
 bin/console pimcore:bundle:enable DocumentCopierBundle
 ```
+
+Import example documents:
+```bash
+bin/console document-copier:import --path=/codecept-document-copier/foo/bar --root=vendor/divante/pimcore-document-copier/app/Resources/test_root --recursiveDepth=2
+```
+
+View imported documents in Pimcore admin panel
+
+
+## Usage
 
 ## Testing
 

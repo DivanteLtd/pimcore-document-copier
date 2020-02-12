@@ -10,14 +10,25 @@ declare(strict_types=1);
 
 namespace Divante\DocumentCopierBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
+use Pimcore\Controller\FrontendController as BaseFrontendController;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 /**
  * Class DocumentController
  * @package Divante\DocumentCopierBundle\Controller
  */
-class DocumentController
+class DocumentController extends BaseFrontendController
 {
+    /**
+     * @param FilterControllerEvent $event
+     */
+    public function onKernelController(FilterControllerEvent $event)
+    {
+        $request = $event->getRequest();
+
+        $this->setViewAutoRender($request, true, 'twig');
+    }
+
     /**
      * Default action to view test document
      */

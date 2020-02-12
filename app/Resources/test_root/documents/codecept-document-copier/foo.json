@@ -10,10 +10,10 @@
     "settings": {
         "title": "",
         "description": "",
-        "module": null,
-        "controller": "default",
+        "module": "DocumentCopierBundle",
+        "controller": "@Divante\\DocumentCopierBundle\\Controller\\DocumentController",
         "action": "default",
-        "template": null,
+        "template": "DocumentCopierBundle:Document:poc.html.twig",
         "published": true,
         "prettyUrl": null
     },

@@ -102,10 +102,10 @@
     },
     "properties": [],
     "settings": {
-        "module": "AppBundle",
-        "controller": "@AppBundle\\Controller\\DocumentController",
+        "module": "DocumentCopierBundle",
+        "controller": "@Divante\\DocumentCopierBundle\\Controller\\DocumentController",
         "action": "default",
-        "template": "Document\/poc.html.twig",
+        "template": "DocumentCopierBundle:Document:poc.html.twig",
         "published": true
     },
     "dependencies": [
