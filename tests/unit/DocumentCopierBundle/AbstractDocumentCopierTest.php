@@ -109,9 +109,10 @@ abstract class AbstractDocumentCopierTest extends Unit
         $this->assertEquals('My Title', $document->getTitle());
         $this->assertEquals('Żółć', $document->getDescription());
         $this->assertEquals('/myprettyurl', $document->getPrettyUrl());
-        $this->assertEquals('@AppBundle\Controller\DocumentController', $document->getController());
+        $this->assertEquals('DocumentCopierBundle', $document->getModule());
+        $this->assertEquals('@Divante\DocumentCopierBundle\Controller\DocumentController', $document->getController());
         $this->assertEquals('default', $document->getAction());
-        $this->assertEquals('Document/poc.html.twig', $document->getTemplate());
+        $this->assertEquals('DocumentCopierBundle:Document:poc.html.twig', $document->getTemplate());
         $this->assertEquals(true, boolval($document->isPublished()));
 
         // Properties
