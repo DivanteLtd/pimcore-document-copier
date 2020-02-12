@@ -12,6 +12,7 @@ namespace Tests\Unit\DocumentCopierBundle;
 
 use Codeception\Test\Unit;
 use Exception;
+use Pimcore\Cache\Runtime;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use RuntimeException;
@@ -78,17 +79,10 @@ abstract class AbstractDocumentCopierTest extends Unit
      */
     protected function cleanUp(): void
     {
-        $documents = [
-            '/codecept-document-copier',
-            self::DOCUMENT_PATH
-        ];
+        $documentRoot = Document::getByPath('/codecept-document-copier');
 
-        foreach ($documents as $path) {
-            $documentRoot = Document::getByPath($path);
-
-            if ($documentRoot) {
-                $documentRoot->delete();
-            }
+        if ($documentRoot) {
+            $documentRoot->delete();
         }
 
         $assetRoot = Asset::getByPath('/codecept-document-copier');
@@ -98,6 +92,8 @@ abstract class AbstractDocumentCopierTest extends Unit
         }
 
         $this->clearNewRootDirectory();
+
+        Runtime::clear();
     }
 
     /**
