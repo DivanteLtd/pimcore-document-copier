@@ -13,7 +13,6 @@ before_script:
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php --install-dir=/usr/bin --filename=composer
     - php -r "unlink('composer-setup.php');"
-    - composer config -g -a http-basic.packagist.divante.pl "$COMPOSER_DIVANTE_USER" "$COMPOSER_DIVANTE_PASSWORD"
     - composer config -g cache-dir "$(pwd)/.composer-cache"
 
 ### Analysis

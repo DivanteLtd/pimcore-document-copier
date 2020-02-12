@@ -29,10 +29,14 @@ bin/console pimcore:bundle:enable DocumentCopierBundle
 
 ## Testing
 
-Run tests:
+Run tests locally:
 ```bash
-PIMCORE_TEST_DB_DSN="mysql://username:password@localhost/pimcore_test" \
-    vendor/bin/codecept run -c tests/codeception.dist.yml
+vendor/bin/codecept run -c tests/codeception.dist.yml
+```
+
+Or with gitlab-runner:
+```bash
+gitlab-runner exec docker codeception
 ```
 
 ## Contributing

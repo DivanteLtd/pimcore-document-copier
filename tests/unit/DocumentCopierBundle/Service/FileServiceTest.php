@@ -8,14 +8,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\AppBundle\Service\DocumentCopier;
+namespace Tests\Unit\AppBundle\Service\DocumentCopier;
 
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
 use Divante\DocumentCopierBundle\Service\FileService;
 use Exception;
 use Pimcore\Model\Asset;
 use Symfony\Component\Filesystem\Exception\IOException;
-use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
+use Tests\Unit\DocumentCopierBundle\AbstractDocumentCopierTest;
 
 class FileServiceTest extends AbstractDocumentCopierTest
 {

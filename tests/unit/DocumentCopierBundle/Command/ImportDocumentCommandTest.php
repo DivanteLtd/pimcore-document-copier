@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\DocumentCopierBundle\Command;
+namespace Tests\Unit\DocumentCopierBundle\Command;
 
 use Divante\DocumentCopierBundle\Command\DocumentImportCommand;
 use Divante\DocumentCopierBundle\Service\DependencyManager;
@@ -19,20 +19,23 @@ use Monolog\Logger;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
 use Symfony\Component\Console\Tester\CommandTester;
-use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
+use Tests\Unit\DocumentCopierBundle\AbstractDocumentCopierTest;
 
 class ImportDocumentCommandTest extends AbstractDocumentCopierTest
 {
     /** @var DocumentImportCommand */
     private $importCommand;
 
+    /**
+     * @throws Exception
+     */
     public function testImportWithDependencies()
     {
-        // given
-        $this->assertNull(Document::getByPath(self::DOCUMENT_PATH));
-        $this->assertNull(Asset::getByPath(self::ASSET_PATH));
-
         foreach ([0, 1, 2, 10] as $recursveDepth) {
+            // given
+            $this->assertNull(Document::getByPath(self::DOCUMENT_PATH));
+            $this->assertNull(Asset::getByPath(self::ASSET_PATH));
+
             // when
             $commandTester = new CommandTester($this->importCommand);
             $commandTester->execute([
@@ -51,6 +54,8 @@ class ImportDocumentCommandTest extends AbstractDocumentCopierTest
             }
 
             $this->documentAssertions($document, $recursveDepth);
+
+            $this->cleanUp();
         }
     }
 

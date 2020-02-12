@@ -8,15 +8,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\DocumentCopierBundle;
+namespace Tests\Unit\DocumentCopierBundle;
 
 use Codeception\Test\Unit;
 use Exception;
-use FilesystemIterator;
 use Pimcore\Model\Asset;
 use Pimcore\Model\Document;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use RuntimeException;
 
 abstract class AbstractDocumentCopierTest extends Unit
@@ -66,7 +63,14 @@ abstract class AbstractDocumentCopierTest extends Unit
      */
     protected function jsonDiff(string $json, string $otherJson): array
     {
-        return array_diff(json_decode($json, true), json_decode($otherJson, true));
+        $decoded = json_decode($json, true);
+        $otherDecoded = json_decode($otherJson, true);
+
+        if (is_array($decoded) && is_array($otherDecoded)) {
+            return array_diff($decoded, $otherDecoded);
+        } else {
+            return [];
+        }
     }
 
     /**

@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\DocumentCopierBundle\Service;
+namespace Tests\Unit\DocumentCopierBundle\Service;
 
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
 use Divante\DocumentCopierBundle\Service\DependencyManager;
@@ -18,7 +18,7 @@ use Divante\DocumentCopierBundle\Service\ImportService;
 use Exception;
 use Monolog\Logger;
 use Pimcore\Model\Document\Page;
-use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
+use Tests\Unit\DocumentCopierBundle\AbstractDocumentCopierTest;
 
 class ExportServiceTest extends AbstractDocumentCopierTest
 {
@@ -71,8 +71,10 @@ class ExportServiceTest extends AbstractDocumentCopierTest
             $this->assertEmpty($this->jsonDiff(json_encode($originalDto), json_encode($exportedDto)));
 
             if ($path === self::DOCUMENT_JSON_PATH) {
-                // and when
+                // and given
                 $importedDocument->delete();
+
+                // when
                 $twiceImportedDocument = $this->importService->import($exportedDto);
 
                 // then

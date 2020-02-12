@@ -8,14 +8,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\DocumentCopierBundle\Service;
+namespace Tests\Unit\DocumentCopierBundle\Service;
 
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
 use Divante\DocumentCopierBundle\Service\ImportService;
 use Exception;
 use Monolog\Logger;
 use Pimcore\Model\Document;
-use Tests\DocumentCopierBundle\AbstractDocumentCopierTest;
+use Tests\Unit\DocumentCopierBundle\AbstractDocumentCopierTest;
 
 class ImportServiceTest extends AbstractDocumentCopierTest
 {
