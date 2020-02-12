@@ -44,10 +44,71 @@ Import example documents:
 bin/console document-copier:import --path=/codecept-document-copier/foo/bar --root=vendor/divante/pimcore-document-copier/app/Resources/test_root --recursiveDepth=2
 ```
 
-View imported documents in Pimcore admin panel
+View imported documents in Pimcore admin panel:\
+![Example documents imported](docs/example-documents-imported.png "Example documents imported")
 
 
 ## Usage
+
+### Export command
+
+```bash
+bin/console document-copier:export --path=PATH --root[=ROOT] --recursiveDepth[=RECURSIVEDEPTH]
+```
+Options:
+*  `--path=PATH` **Document path** \
+Full path to the document as in admin panel
+*  `--root[=ROOT]` **Resources root** [default: `app/Resources`"] \
+Exported JSONs and assets will be saved to this directory \
+Leave this parameter as default unless you need to keep different versions of documents
+*  `--recursiveDepth[=RECURSIVEDEPTH]` **Max depth of dependency tree** [default: `0`] \
+Keep this number small to avoid accidentally overwriting too many documents \
+If `0`, no dependencies (documents & assets) will be exported \
+If `1`, only direct dependencies will be exported (child documents, as well as documents & assets referenced in the document) \
+If greater than `1`, dependencies and their depenencies will be exported
+
+
+### Import command
+
+```bash
+bin/console document-copier:import --path=PATH --root[=ROOT] --recursiveDepth[=RECURSIVEDEPTH]
+```
+
+Options:
+*  `--path=PATH` **Document path** \
+*Same as in export command*
+*  `--root[=ROOT]` **Resources root** [default: "app/Resources"] \
+JSONs and assets will be loaded from this directory. \
+File structure in this directory must reflect document and asset trees as in admin panel. \
+Leave this parameter as default unless you need to keep different versions of documents
+*  `--recursiveDepth[=RECURSIVEDEPTH]` **Max depth of dependency tree** [default: 0] \
+*Same as in export command*
+
+
+### Limitations
+
+Unsupported document types:
+* newsletter
+* printpage
+* printcontainer
+
+Unsupported editable types:
+* area*
+* areablock*
+* embed
+* pdf*
+* relation
+* relations
+* renderlet
+* scheduledblock*
+* video*
+
+Unsupported document settings:
+* Content-Master Document*
+* Target Groups
+* HTML-Tags
+
+(* - planned)
 
 ## Testing
 
