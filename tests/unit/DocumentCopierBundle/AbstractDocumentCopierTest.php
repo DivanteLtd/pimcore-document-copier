@@ -78,10 +78,17 @@ abstract class AbstractDocumentCopierTest extends Unit
      */
     protected function cleanUp(): void
     {
-        $documentRoot = Document::getByPath('/codecept-document-copier');
+        $documents = [
+            '/codecept-document-copier',
+            self::DOCUMENT_PATH
+        ];
 
-        if ($documentRoot) {
-            $documentRoot->delete();
+        foreach ($documents as $path) {
+            $documentRoot = Document::getByPath($path);
+
+            if ($documentRoot) {
+                $documentRoot->delete();
+            }
         }
 
         $assetRoot = Asset::getByPath('/codecept-document-copier');
