@@ -193,6 +193,35 @@
             "type": "numeric",
             "data": "14"
         },
+        "myScheduledBlock": {
+            "type": "scheduledblock",
+            "data": [
+                {
+                    "key": "0",
+                    "date": 1581937240
+                },
+                {
+                    "key": "1",
+                    "date": 1581973240
+                }
+            ]
+        },
+        "myScheduledBlock:0.content": {
+            "type": "textarea",
+            "data": "Text for schedule A"
+        },
+        "myScheduledBlock:0.heading": {
+            "type": "input",
+            "data": "Schedule A"
+        },
+        "myScheduledBlock:1.content": {
+            "type": "textarea",
+            "data": "Text for schedule B"
+        },
+        "myScheduledBlock:1.heading": {
+            "type": "input",
+            "data": "Schedule B"
+        },
         "mySelect": {
             "type": "select",
             "data": "b"

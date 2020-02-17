@@ -189,6 +189,22 @@ abstract class AbstractDocumentCopierTest extends Unit
         $this->assertEquals('Area G', $areaG->getElement('heading')->getData());
         $this->assertEquals('Text for area G', $areaG->getElement('content')->getData());
 
+        /** @var Document\Tag\Scheduledblock $scheduledBlock */
+        $scheduledBlock = $document->getElement('myScheduledBlock');
+        $this->assertCount(2, $scheduledBlock->getData());
+        $this->assertEquals(0, $scheduledBlock->getData()[0]['key']);
+        $this->assertEquals(1581937240, $scheduledBlock->getData()[0]['date']);
+        $this->assertEquals(1, $scheduledBlock->getData()[1]['key']);
+        $this->assertEquals(1581973240, $scheduledBlock->getData()[1]['date']);
+
+        /** @var Document\Tag\Block\Item[] $scheduledBlocks */
+        $scheduledBlocks = $document->getElement('myScheduledBlock')->getElements();
+        $this->assertCount(2, $scheduledBlocks);
+        $this->assertEquals('Schedule A', $scheduledBlocks[0]->getElement('heading')->getData());
+        $this->assertEquals('Text for schedule A', $scheduledBlocks[0]->getElement('content')->getData());
+        $this->assertEquals('Schedule B', $scheduledBlocks[1]->getElement('heading')->getData());
+        $this->assertEquals('Text for schedule B', $scheduledBlocks[1]->getElement('content')->getData());
+
         if ($dependenciesDepth >= 1) {
             // Elements
             /** @var Document\Tag\Image $imageElement */
