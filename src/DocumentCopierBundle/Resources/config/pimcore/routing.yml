@@ -1,0 +1,4 @@
+documentcopier:
+    resource: "@DocumentCopierBundle/Controller/"
+    type:     annotation
+    prefix:   /admin/api

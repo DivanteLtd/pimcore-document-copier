@@ -13,7 +13,9 @@ Pimcore bundle for copying documents between environments
 	- [About Authors](#about-authors)
 
 ## Compatibility
-This module was tested on Pimcore 6.1.2 @ PHP 7.3.
+This module was tested on:
+* Pimcore 6.1.2 @ PHP 7.3
+* Pimcore 6.4.2 @ PHP 7.3
 
 ## Installing/Getting started
 
@@ -34,6 +36,12 @@ Install latest version from repo:
 composer require divante/pimcore-document-copier:dev-master
 ```
 
+Add routing to `app/config/routing.yml`:
+```yaml
+_documentcopier:
+    resource: "@DocumentCopierBundle/Resources/config/pimcore/routing.yml"
+```
+
 Enable the bundle:
 ```bash
 bin/console pimcore:bundle:enable DocumentCopierBundle
@@ -50,7 +58,15 @@ View imported documents in Pimcore admin panel:\
 
 ## Usage
 
-### Export command
+### Admin interface
+
+#### Export button
+
+#### Import button
+
+### Commands
+
+#### Export command
 
 ```bash
 bin/console document-copier:export --path=PATH --root[=ROOT] --recursiveDepth[=RECURSIVEDEPTH]
@@ -68,7 +84,7 @@ If `1`, only direct dependencies will be exported (child documents, as well as d
 If greater than `1`, dependencies and their depenencies will be exported
 
 
-### Import command
+#### Import command
 
 ```bash
 bin/console document-copier:import --path=PATH --root[=ROOT] --recursiveDepth[=RECURSIVEDEPTH]
