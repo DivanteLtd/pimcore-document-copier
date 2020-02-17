@@ -93,8 +93,6 @@ Unsupported document types:
 * printcontainer
 
 Unsupported editable types:
-* area*
-* areablock*
 * embed
 * pdf*
 * relation
@@ -117,7 +115,7 @@ Run tests locally:
 vendor/bin/codecept run -c tests/codeception.dist.yml
 ```
 
-Or with gitlab-runner:
+Or with gitlab-runner (you need to push first):
 ```bash
 gitlab-runner exec docker codeception
 ```
