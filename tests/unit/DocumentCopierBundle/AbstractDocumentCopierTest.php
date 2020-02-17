@@ -97,7 +97,7 @@ abstract class AbstractDocumentCopierTest extends Unit
     }
 
     /**
-     * Contains assertions about entire document tree
+     * Contains assertions about /codecept-document-copier/foo/bar and its dependencies
      *
      * @param Document\Page $document
      * @param int $dependenciesDepth
@@ -142,11 +142,52 @@ abstract class AbstractDocumentCopierTest extends Unit
         $this->assertEquals('lorem ipsum', $document->getElement('myTextarea')->getData());
         $this->assertContains('<p>dolor sit amet</p>', $document->getElement('myWysiwyg')->getData());
         $this->assertEquals(['1', '2'], $document->getElement('myBlock')->getData());
-        $this->assertEquals('Block A', $document->getElement('myBlock:1.heading')->getData());
-        $this->assertEquals('Text for block A', $document->getElement('myBlock:1.content')->getData());
-        $this->assertEquals('Block B', $document->getElement('myBlock:2.heading')->getData());
-        $this->assertEquals('Text for block B', $document->getElement('myBlock:2.content')->getData());
 
+        /** @var Document\Tag\Block\Item[] $block */
+        $blocks = $document->getElement('myBlock')->getElements();
+        $this->assertCount(2, $blocks);
+        $this->assertEquals('Block A', $blocks[0]->getElement('heading')->getData());
+        $this->assertEquals('Text for block A', $blocks[0]->getElement('content')->getData());
+        $this->assertEquals('Block B', $blocks[1]->getElement('heading')->getData());
+        $this->assertEquals('Text for block B', $blocks[1]->getElement('content')->getData());
+
+        /** @var Document\Tag\Area $areaA */
+        $areaA = $document->getElement('myArea');
+        $this->assertEquals('Area A', $areaA->getElement('heading')->getData());
+        $this->assertEquals('Text for area A', $areaA->getElement('content')->getData());
+
+        /** @var Document\Tag\Area $areaB */
+        $areaB = $document->getElement('myNestedArea');
+        $this->assertEquals('Area B', $areaB->getElement('heading')->getData());
+
+        /** @var Document\Tag\Area $areaC */
+        $areaC = $areaB->getElement('content');
+        $this->assertEquals('Area C', $areaC->getElement('heading')->getData());
+        $this->assertEquals('Text for area C', $areaC->getElement('content')->getData());
+
+        /** @var Document\Tag\Areablock $areablock */
+        $areablock = $document->getElement('myAreablock');
+        $this->assertCount(3, $areablock->getData());
+        $this->assertTrue($areablock->getData()[1]['hidden']);
+
+        /** @var Document\Tag\Area $areaD */
+        $areaD = $areablock->getElement('example-areabrick')[0];
+        $this->assertEquals('Area D', $areaD->getElement('heading')->getData());
+        $this->assertEquals('Text for area D', $areaD->getElement('content')->getData());
+
+        /** @var Document\Tag\Area $areaE */
+        $areaE = $areablock->getElement('example-areabrick')[1];
+        $this->assertEquals('Area E', $areaE->getElement('heading')->getData());
+        $this->assertEquals('Text for area E', $areaE->getElement('content')->getData());
+
+        /** @var Document\Tag\Area $areaF */
+        $areaF = $areablock->getElement('nested-areabrick')[2];
+        $this->assertEquals('Area F', $areaF->getElement('heading')->getData());
+
+        /** @var Document\Tag\Area $areaG */
+        $areaG = $areaF->getElement('content');
+        $this->assertEquals('Area G', $areaG->getElement('heading')->getData());
+        $this->assertEquals('Text for area G', $areaG->getElement('content')->getData());
 
         if ($dependenciesDepth >= 1) {
             // Elements
@@ -189,6 +230,7 @@ abstract class AbstractDocumentCopierTest extends Unit
             $this->assertEquals('my-asset.png', $assetProp->getFilename());
             $this->assertEquals('/codecept-document-copier/my-dir/my-asset.png', $assetProp->getFullPath());
 
+            // Dependencies
             if ($dependenciesDepth >= 2) {
                 /** @var Document\Tag\Snippet $anotherSnippetElement */
                 $anotherSnippetElement = $child->getElement('mySnippet');

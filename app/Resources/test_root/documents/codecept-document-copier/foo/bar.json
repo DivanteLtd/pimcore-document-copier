@@ -7,6 +7,70 @@
         "\/codecept-document-copier\/foo": "page"
     },
     "elements": {
+        "myArea": {
+            "type": "area",
+            "data": null
+        },
+        "myArea:1.content": {
+            "type": "textarea",
+            "data": "Text for area A"
+        },
+        "myArea:1.heading": {
+            "type": "input",
+            "data": "Area A"
+        },
+        "myAreablock": {
+            "type": "areablock",
+            "data": [
+                {
+                    "key": "1",
+                    "type": "example-areabrick",
+                    "hidden": false
+                },
+                {
+                    "key": "3",
+                    "type": "example-areabrick",
+                    "hidden": true
+                },
+                {
+                    "key": "2",
+                    "type": "nested-areabrick",
+                    "hidden": false
+                }
+            ]
+        },
+        "myAreablock:1.content": {
+            "type": "textarea",
+            "data": "Text for area D"
+        },
+        "myAreablock:1.heading": {
+            "type": "input",
+            "data": "Area D"
+        },
+        "myAreablock:2.content": {
+            "type": "area",
+            "data": null
+        },
+        "myAreablock:2.content:1.content": {
+            "type": "textarea",
+            "data": "Text for area G"
+        },
+        "myAreablock:2.content:1.heading": {
+            "type": "input",
+            "data": "Area G"
+        },
+        "myAreablock:2.heading": {
+            "type": "input",
+            "data": "Area F"
+        },
+        "myAreablock:3.content": {
+            "type": "textarea",
+            "data": "Text for area E"
+        },
+        "myAreablock:3.heading": {
+            "type": "input",
+            "data": "Area E"
+        },
         "myBlock": {
             "type": "block",
             "data": [
@@ -104,6 +168,26 @@
                 "b",
                 "a"
             ]
+        },
+        "myNestedArea": {
+            "type": "area",
+            "data": null
+        },
+        "myNestedArea:1.content": {
+            "type": "area",
+            "data": null
+        },
+        "myNestedArea:1.content:1.content": {
+            "type": "textarea",
+            "data": "Text for area C"
+        },
+        "myNestedArea:1.content:1.heading": {
+            "type": "input",
+            "data": "Area C"
+        },
+        "myNestedArea:1.heading": {
+            "type": "input",
+            "data": "Area B"
         },
         "myNumeric": {
             "type": "numeric",

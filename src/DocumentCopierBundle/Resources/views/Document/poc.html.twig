@@ -57,7 +57,7 @@
 
 <div>
     <h2>Snippet</h2>
-    {{ pimcore_snippet('mySnippet', {"width": 250, "height": 100}) }}
+    {{ pimcore_snippet('mySnippet', {'width': 250, 'height': 100}) }}
 </div>
 
 <div>
@@ -66,4 +66,19 @@
         <h3>{{ pimcore_input('heading') }}</h3>
         <p>{{ pimcore_textarea('content') }}</p>
     {% endfor %}
+</div>
+
+<div>
+    <h2>Area</h2>
+    {{ pimcore_area('myArea', {'type': 'example-areabrick'}) }}
+</div>
+
+<div>
+    <h2>Nested area</h2>
+    {{ pimcore_area('myNestedArea', {'type': 'nested-areabrick'}) }}
+</div>
+
+<div>
+    <h2>Areablock</h2>
+    {{ pimcore_areablock('myAreablock', {'allowed': ['example-areabrick', 'nested-areabrick']}) }}
 </div>
