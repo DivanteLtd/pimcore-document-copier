@@ -82,3 +82,11 @@
     <h2>Areablock</h2>
     {{ pimcore_areablock('myAreablock', {'allowed': ['example-areabrick', 'nested-areabrick']}) }}
 </div>
+
+<div>
+    <h2>Scheduled block</h2>
+    {% for i in pimcore_iterate_block(pimcore_scheduledblock('myScheduledBlock')) %}
+        <h3>{{ pimcore_input('heading') }}</h3>
+        <p>{{ pimcore_textarea('content') }}</p>
+    {% endfor %}
+</div>

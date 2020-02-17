@@ -47,12 +47,12 @@ class PortableDocument implements JsonSerializable
         'block',
         'area',
         'areablock',
+        'scheduledblock',
         //'embed',
         //'pdf',
         //'relation',
         //'relations',
         //'renderlet',
-        //'scheduledblock',
         //'video',
     ];
 
