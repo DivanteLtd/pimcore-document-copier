@@ -60,9 +60,11 @@ View imported documents in Pimcore admin panel:\
 
 ### Admin interface
 
-#### Export button
+![Context menu](docs/context-menu.png "Context menu")
 
-#### Import button
+#### Export dialog
+
+#### Import dialog
 
 ### Commands
 

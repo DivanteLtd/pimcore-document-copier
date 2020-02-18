@@ -19,6 +19,13 @@ class DocumentCopierBundle extends AbstractPimcoreBundle
 {
     use PackageVersionTrait;
 
+    public function getJsPaths()
+    {
+        return [
+            '/bundles/documentcopier/js/startup.js',
+        ];
+    }
+
     /**
      * @return string
      */
