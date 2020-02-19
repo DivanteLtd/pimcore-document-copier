@@ -19,6 +19,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -53,11 +54,14 @@ class AdminController extends PimcoreAdminController
             return $this->adminJson(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $this->adminJson(['key' => $key], Response::HTTP_OK);
+        return $this->adminJson(
+            ['url' => $this->generateUrl('download_export', ['key' => $key])],
+            Response::HTTP_OK
+        );
     }
 
     /**
-     * @Route("/download-export", methods={"GET"})
+     * @Route("/download-export", methods={"GET"}, name="download_export")
      * @param Request $request
      * @param AdminService $adminService
      * @param LoggerInterface $logger
@@ -66,7 +70,7 @@ class AdminController extends PimcoreAdminController
     public function downloadAction(Request $request, AdminService $adminService, LoggerInterface $logger)
     {
         try {
-            $key = $adminService->validateDownloadKey($request->get('key'));
+            $key = $adminService->validateDownloadKey($request->query->get('key'));
             $user = $adminService->validateUser($this->getAdminUser());
         } catch (ValidationException $e) {
             return $this->adminJson(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
@@ -81,7 +85,11 @@ class AdminController extends PimcoreAdminController
             return $this->adminJson(['message' => 'File is no longer available'], Response::HTTP_GONE);
         }
 
-        return $this->file($filePath);
+        $response = new BinaryFileResponse($filePath);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+        $response->deleteFileAfterSend(true);
+
+        return $response;
     }
 
     /**

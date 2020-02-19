@@ -76,6 +76,7 @@ pimcore.documentcopier = Class.create(pimcore.plugin.admin, {
                 }
             ]
         });
+
         exportForm.show();
     },
 
@@ -85,12 +86,11 @@ pimcore.documentcopier = Class.create(pimcore.plugin.admin, {
             !form.getForm().getValues() ||
             !form.getForm().getValues().depth
         ) {
-            console.error("[DocumentCopier] Invalid form - failed to obtain depth");
+            console.error("[DocumentCopier] Invalid form input - failed to obtain depth");
             return;
         }
 
         let depth = form.getForm().getValues().depth;
-        console.log("Export " + document.path + " at depth " + depth);
         form.disable();
 
         Ext.Ajax.request({
@@ -103,14 +103,18 @@ pimcore.documentcopier = Class.create(pimcore.plugin.admin, {
             },
 
             success: function(response, opts) {
-                var obj = Ext.decode(response.responseText);
-                console.dir(obj);
-                // TODO: read key and download zipped export
-                form.hide();
+                let obj = Ext.decode(response.responseText);
+
+                if (obj.url) {
+                    window.open(obj.url);
+                    form.hide();
+                } else {
+                    console.error('[DocumentCopier] Unexpected response from export endpoint');
+                    form.enable();
+                }
             }.bind(form),
 
             failure: function(response, opts) {
-                console.log(response);
                 if (response.status === 404) {
                     Ext.Msg.alert(
                         "[DocumentCopier] Configuration error",
@@ -131,7 +135,8 @@ pimcore.documentcopier = Class.create(pimcore.plugin.admin, {
 
     importDialog: function(document) {
         console.log("import " + document.path);
-        // TODO: handle import
+        // TODO: add import form
+        // TODO: handle import api
     }
 
 });

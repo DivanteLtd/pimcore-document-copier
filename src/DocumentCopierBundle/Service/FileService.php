@@ -12,9 +12,13 @@ namespace Divante\DocumentCopierBundle\Service;
 
 use Divante\DocumentCopierBundle\DTO\PortableDocument;
 use Exception;
+use FilesystemIterator;
 use InvalidArgumentException;
 use Pimcore\Model\Asset;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Symfony\Component\Filesystem\Exception\IOException;
+use ZipArchive;
 
 /**
  * Class FileService
@@ -169,6 +173,61 @@ class FileService
         $asset->save();
 
         return $asset;
+    }
+
+    /**
+     * @param string $rootDirectory
+     * @param string $zipDestination
+     */
+    public function zipRootDirectory(string $rootDirectory, string $zipDestination): void
+    {
+        $destinationDir = implode('/', array_slice(explode('/', $zipDestination), 0, -1));
+
+        if (!is_dir($destinationDir)) {
+            mkdir($destinationDir, 0777, true);
+        }
+
+        $zip = new ZipArchive();
+        $zip->open($zipDestination, ZipArchive::CREATE);
+
+        $source = str_replace('\\', '/', realpath($rootDirectory));
+
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $source,
+                FilesystemIterator::KEY_AS_PATHNAME |
+                FilesystemIterator::CURRENT_AS_PATHNAME |
+                FilesystemIterator::SKIP_DOTS
+            ),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        foreach ($files as $file) {
+            $file = str_replace('\\', '/', realpath($file));
+
+            if (is_dir($file)) {
+                $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+            } else if (is_file($file)) {
+                $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+            }
+        }
+
+        $zip->close();
+
+        $filesToDelete = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($source, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+
+        foreach ($filesToDelete as $file) {
+            if ($file->isDir()){
+                rmdir($file->getRealPath());
+            } else {
+                unlink($file->getRealPath());
+            }
+        }
+
+        rmdir($source);
     }
 
     /**

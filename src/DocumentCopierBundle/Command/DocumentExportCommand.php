@@ -28,6 +28,8 @@ use Symfony\Component\Filesystem\Exception\IOException;
  */
 class DocumentExportCommand extends ContainerAwareCommand
 {
+    const NAME = 'document-copier:export';
+
     /** @var ExportService */
     protected $exportService;
 
