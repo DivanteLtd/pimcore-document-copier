@@ -171,7 +171,15 @@ class AdminService
     private function generateDownloadKey(string $path, int $depth, User $user): string
     {
         $document = Document::getByPath($path);
-        $documentKey = $document ? $document->getKey() : '';
+
+        if (!$document instanceof Document) {
+            $documentKey = '';
+        } else if ($document->getRealFullPath() === '/') {
+            $documentKey = 'home';
+        } else {
+            $documentKey = $document->getKey();
+        }
+
         $documentKey = preg_replace("/[^a-zA-Z0-9]+/", "-", $documentKey);
 
         return uniqid($documentKey . '_' . strval($depth) . '_' . $user->getId());
