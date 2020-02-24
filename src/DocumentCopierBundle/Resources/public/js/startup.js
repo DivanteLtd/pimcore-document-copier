@@ -41,18 +41,23 @@ pimcore.DocumentCopier = Class.create(pimcore.plugin.admin, {
 
     showExportDialog: function(document) {
         var exportForm = new Ext.form.Panel({
-            height: 150,
-            width: 400,
+            width: 600,
             bodyPadding: 10,
             defaultType: "textfield",
             title: "Export document",
             floating: true,
             closable : true,
+            html: "<p>Keep <em>dependency depth</em> small to avoid accidentally exporting too many documents</p>" +
+                "<ul><li>If <strong>0</strong>, no dependencies (documents & assets) will be exported </li>" +
+                "<li>If <strong>1</strong>, only direct dependencies will be exported (child documents, as well as documents & assets referenced in the document)</li>" +
+                "<li>If greater than <strong>1</strong>, dependencies and their dependencies will be exported recursively</li></ul>",
             items: [
                 {
                     fieldLabel: "Dependency depth",
+                    labelWidth: 150,
                     name: "depth",
                     xtype: "numberfield",
+                    allowBlank: false,
                     value: 1,
                     step: 1,
                     maxValue: 10,
@@ -83,10 +88,11 @@ pimcore.DocumentCopier = Class.create(pimcore.plugin.admin, {
     handleExportForm: function(document, form) {
         if (!form ||
             !form.getForm() ||
+            !form.isValid() ||
             !form.getForm().getValues() ||
             form.getForm().getValues().depth == null
         ) {
-            console.error("[DocumentCopier] Invalid form input (failed to obtain field: depth)");
+            console.error("[DocumentCopier] Invalid form input");
             return;
         }
 
@@ -135,24 +141,43 @@ pimcore.DocumentCopier = Class.create(pimcore.plugin.admin, {
 
     showImportDialog: function(document) {
         var importForm = new Ext.form.Panel({
-            height: 150,
-            width: 400,
+            width: 600,
             bodyPadding: 10,
             defaultType: "textfield",
             title: "Import document",
             floating: true,
             closable : true,
+            html: "<div style='text-align: center'>" +
+                "<p style='color: #F93822;'><em>Warning:</em> Changes are applied immediately and <strong>cannot be undone</strong>. <br>" +
+                "Please review uploaded file before you continue.</p>" +
+                "</div>" +
+                "<p>Keep <em>dependency depth</em> small to avoid accidentally overwriting too many documents</p>" +
+                "<ul><li>If <strong>0</strong>, no dependencies (documents & assets) will be imported </li>" +
+                "<li>If <strong>1</strong>, only direct dependencies will be imported (child documents, as well as documents & assets referenced in the document)</li>" +
+                "<li>If greater than <strong>1</strong>, dependencies and their dependencies will be imported recursively</li></ul>",
             items: [
                 {
+                    xtype: 'filefield',
+                    name: 'file',
+                    fieldLabel: 'File to import',
+                    labelWidth: 150,
+                    accept: "zip,application/octet-stream,application/zip,application/x-zip,application/x-zip-compressed",
+                    msgTarget: 'side',
+                    allowBlank: false,
+                    anchor: '100%',
+                    buttonText: 'Select ZIP File...'
+                },
+                {
                     fieldLabel: "Dependency depth",
+                    labelWidth: 150,
                     name: "depth",
                     xtype: "numberfield",
+                    allowBlank: false,
                     value: 1,
                     step: 1,
                     maxValue: 10,
                     minValue: 0,
-                }
-                // TODO: Add warning
+                },
             ],
             buttons: [
                 {
@@ -176,7 +201,43 @@ pimcore.DocumentCopier = Class.create(pimcore.plugin.admin, {
     },
 
     handleImportForm: function(document, form) {
-        // TODO: handle import api
+        if (!form || !form.isValid()) {
+            console.error("[DocumentCopier] Invalid form input");
+            return;
+        }
+
+        let depth = form.getForm().getValues().depth;
+
+        console.log(form.getForm());
+        form.disable();
+
+        Ext.Ajax.request({
+            url: '/admin/api/import-document',
+            method: 'POST',
+
+            success: function(response, opts) {
+                form.enable();
+                let obj = Ext.decode(response.responseText);
+                console.dir(obj);
+            }.bind(form),
+
+            failure: function(response, opts) {
+                if (response.status === 404) {
+                    Ext.Msg.alert(
+                        "[DocumentCopier] Configuration error",
+                        "Endpoint does not exist. Did you configure routing for this bundle?",
+                        Ext.emptyFn
+                    );
+                    form.hide();
+                } else if (response.status === 400) {
+                    console.log("[DocumentCopier] Invalid input: " + Ext.decode(response.responseText).message);
+                    form.enable();
+                } else {
+                    console.error('[DocumentCopier] Export endpoint error ' + response.status);
+                    form.enable();
+                }
+            }.bind(form)
+        });
     },
 
 });

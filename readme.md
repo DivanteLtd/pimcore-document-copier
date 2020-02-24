@@ -83,7 +83,7 @@ Leave this parameter as default unless you need to keep different versions of do
 Keep this number small to avoid accidentally overwriting too many documents \
 If `0`, no dependencies (documents & assets) will be exported \
 If `1`, only direct dependencies will be exported (child documents, as well as documents & assets referenced in the document) \
-If greater than `1`, dependencies and their depenencies will be exported
+If greater than `1`, dependencies and their dependencies will be exported recursively
 
 
 #### Import command
