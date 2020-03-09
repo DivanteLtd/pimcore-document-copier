@@ -1,6 +1,6 @@
 <?php
 /**
- * @category    enea5
+ * @category    pimcore-document-copier
  * @date        20/01/2020 12:54
  * @author      Pascal Dunaj <pdunaj@divante.pl>
  * @copyright   Copyright (c) 2020 Divante Ltd. (https://divante.co)

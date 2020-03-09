@@ -11,7 +11,10 @@ services:
     Divante\DocumentCopierBundle\Controller\:
         resource: '../../Controller'
         public: true
+        autowire: true
         tags: ['controller.service_arguments']
+
+    Divante\DocumentCopierBundle\Controller\AdminController: ~
 
     #
     # Commands
@@ -37,5 +40,9 @@ services:
         resource: '../../Service'
 
     Divante\DocumentCopierBundle\Service\FileService:
+        arguments:
+            $kernelProjectDir: '%kernel.project_dir%'
+
+    Divante\DocumentCopierBundle\Service\AdminService:
         arguments:
             $kernelProjectDir: '%kernel.project_dir%'

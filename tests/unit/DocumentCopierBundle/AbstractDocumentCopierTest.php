@@ -82,7 +82,9 @@ abstract class AbstractDocumentCopierTest extends Unit
         $documentRoot = Document::getByPath('/codecept-document-copier');
 
         if ($documentRoot) {
-            $documentRoot->delete();
+            try {
+                $documentRoot->delete();
+            } catch (\Exception $e) {}
         }
 
         $assetRoot = Asset::getByPath('/codecept-document-copier');

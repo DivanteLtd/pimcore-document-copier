@@ -17,7 +17,7 @@
   ],
   "require": {
     "php": ">=7.1",
-    "pimcore/pimcore": "^5.6 || >=6.0 <6.5",
+    "pimcore/pimcore": "^5.6 || >=6.0",
     "ext-json": "*"
   },
   "require-dev": {

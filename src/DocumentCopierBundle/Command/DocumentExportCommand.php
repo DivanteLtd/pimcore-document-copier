@@ -28,6 +28,8 @@ use Symfony\Component\Filesystem\Exception\IOException;
  */
 class DocumentExportCommand extends ContainerAwareCommand
 {
+    const NAME = 'document-copier:export';
+
     /** @var ExportService */
     protected $exportService;
 
@@ -65,7 +67,7 @@ class DocumentExportCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('document-copier:export')
+            ->setName(self::NAME)
             ->setDescription('Export document to JSON')
             ->addOption(
                 'path',

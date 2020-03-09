@@ -25,6 +25,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DocumentImportCommand extends ContainerAwareCommand
 {
+    const NAME = 'document-copier:import';
+
     /** @var ImportService */
     protected $importService;
 
@@ -62,7 +64,7 @@ class DocumentImportCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('document-copier:import')
+            ->setName(self::NAME)
             ->setDescription('Import document from JSON')
             ->addOption(
                 'path',
