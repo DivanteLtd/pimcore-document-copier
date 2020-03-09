@@ -1,8 +1,6 @@
-This Merge Request is part of the task [XXXX](https://divante.atlassian.net/browse/XXXX)
-
 | Q             | A
 | ------------- | ---
-| Branch?       | master for features / 3.4 up to 4.2 for bug fixes
+| Branch?       | master
 | Bug fix?      | yes/no
 | New feature?  | yes/no
 | BC breaks?    | no
@@ -10,7 +8,7 @@ This Merge Request is part of the task [XXXX](https://divante.atlassian.net/brow
 | Tests pass?   | yes
 | Fixed tickets | #...
 
-Short description of this Merge Request.
+Short description of this Pull Request.
     
 ## Changes
 ### Changed
@@ -23,7 +21,7 @@ Short description of this Merge Request.
 - ...
 
 ## Dependencies
-Depends on [#XXXX]({repository_url}/merge_requests/XXXX) merge request.
+Depends on [#XXXX](https://github.com/DivanteLtd/pimcore-document-copier/pull/XXXX) pull request.
 
 ## Requirements
 1. List of the requirements if needed

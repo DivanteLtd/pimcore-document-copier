@@ -1,4 +1,8 @@
 # Pimcore Document Copier
+
+[![Analysis Actions](https://github.com/DivanteLtd/pimcore-document-copier/workflows/Analysis/badge.svg?branch=master)](https://github.com/DivanteLtd/pimcore-document-copier/actions)
+[![Tests Actions](https://github.com/DivanteLtd/pimcore-document-copier/workflows/Tests/badge.svg?branch=master)](https://github.com/DivanteLtd/pimcore-document-copier/actions)
+
 Pimcore bundle for copying documents between environments
 
 **Table of Contents**
