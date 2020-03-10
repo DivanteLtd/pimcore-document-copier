@@ -8,10 +8,13 @@ jobs:
 
         services:
             mysql:
-                image: mysql:5.7
+                image: percona:5.7.21
                 env:
-                    MYSQL_ROOT_PASSWORD: root
                     MYSQL_DATABASE: database2
+                    MYSQL_USER: user
+                    MYSQL_PASSWORD: password
+                    MYSQL_ROOT_PASSWORD: root
+                    PIMCORE_ENVIRONMENT: test
                 ports:
                     - 33306:3306
                 options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -33,13 +36,10 @@ jobs:
 
             - name: Install project and run tests
               env:
-                  DB_HOST: "mysql"
-                  DB_PORT: "3306"
-                  DB_USERNAME: "root"
-                  DB_PASSWORD: "root"
-                  DB_DATABASE: "database2"
-                  PIMCORE_ENVIRONMENT: "test"
-                  PIMCORE_TEST: "1"
-                  PIMCORE_TEST_DB_DSN: "mysql://root:root@localhost/database2"
+                  MYSQL_DATABASE: database2
+                  MYSQL_USER: user
+                  MYSQL_PASSWORD: password
+                  MYSQL_ROOT_PASSWORD: root
+                  PIMCORE_ENVIRONMENT: test
               run: |
                   bash ./scripts/codeception.sh
