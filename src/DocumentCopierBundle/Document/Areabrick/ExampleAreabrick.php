@@ -13,6 +13,10 @@ namespace Divante\DocumentCopierBundle\Document\Areabrick;
 use Pimcore\Extension\Document\Areabrick\AbstractTemplateAreabrick;
 use Pimcore\Model\Document\Tag\Area\Info;
 
+/**
+ * Class ExampleAreabrick
+ * @package Divante\DocumentCopierBundle\Document\Areabrick
+ */
 class ExampleAreabrick extends AbstractTemplateAreabrick
 {
     /**

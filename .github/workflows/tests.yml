@@ -33,7 +33,7 @@ jobs:
 
             - name: Install project and run tests
               env:
-                  DB_HOST: "localhost"
+                  DB_HOST: "mysql"
                   DB_PORT: "3306"
                   DB_USERNAME: "root"
                   DB_PASSWORD: "root"
