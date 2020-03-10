@@ -1,0 +1,45 @@
+name: Tests
+on: [push]
+
+jobs:
+    build:
+        name: Tests
+        runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: percona:5.7.21
+                env:
+                    MYSQL_DATABASE: database2
+                    MYSQL_USER: user
+                    MYSQL_PASSWORD: password
+                    MYSQL_ROOT_PASSWORD: root
+                    PIMCORE_ENVIRONMENT: test
+                ports:
+                    - 33306:3306
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+        steps:
+            - name: Setup DB
+              run: |
+                  mysql --version
+                  mysql -u root -proot -e "SET GLOBAL innodb_file_format=Barracuda;"
+                  mysql -u root -proot -e "SET GLOBAL innodb_large_prefix=1;"
+
+            - name: PHP Runner
+              uses: nanasess/setup-php@master
+              with:
+                  php-version: '7.3'
+
+            - name: Checkout Repository
+              uses: actions/checkout@v1
+
+            - name: Install project and run tests
+              env:
+                  MYSQL_DATABASE: database2
+                  MYSQL_USER: user
+                  MYSQL_PASSWORD: password
+                  MYSQL_ROOT_PASSWORD: root
+                  PIMCORE_ENVIRONMENT: test
+              run: |
+                  bash ./scripts/codeception.sh
