@@ -31,7 +31,7 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v1
 
-            - name: Install Project
+            - name: Install project and run tests
               env:
                   DB_HOST: "localhost"
                   DB_PORT: "3306"
@@ -40,12 +40,6 @@ jobs:
                   DB_DATABASE: "database2"
                   PIMCORE_ENVIRONMENT: "test"
                   PIMCORE_TEST: "1"
-                  PIMCORE_TEST_DB_DSN: "mysql://root:root@localhost/database2"
-              run: |
-                  ./scripts/install.sh
-
-            - name: Unit Tests
-              env:
                   PIMCORE_TEST_DB_DSN: "mysql://root:root@localhost/database2"
               run: |
                   bash ./scripts/codeception.sh
