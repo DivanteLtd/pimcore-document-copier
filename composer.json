@@ -1,5 +1,5 @@
 {
-  "name": "divante/pimcore-document-copier",
+  "name": "divante-ltd/pimcore-document-copier",
   "type": "pimcore-bundle",
   "license": "GPLv3",
   "description": "Pimcore bundle for copying documents between environments",
