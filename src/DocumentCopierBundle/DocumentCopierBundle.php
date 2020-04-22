@@ -34,7 +34,7 @@ class DocumentCopierBundle extends AbstractPimcoreBundle
      */
     public function getComposerPackageName(): string
     {
-        return 'divante/pimcore-document-copier';
+        return 'divante-ltd/pimcore-document-copier';
     }
 
     /**
