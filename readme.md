@@ -1,4 +1,5 @@
 # Pimcore Document Copier
+
 Pimcore bundle for copying documents between environments
 
 **Table of Contents**
@@ -16,6 +17,7 @@ Pimcore bundle for copying documents between environments
 	- [About Authors](#about-authors)
 
 ## Compatibility
+
 This module was tested on:
 * Pimcore 6.1.2 @ PHP 7.3
 * Pimcore 6.4.2 @ PHP 7.3
@@ -23,21 +25,9 @@ This module was tested on:
 
 ## Installing/Getting started
 
-Add repository to your project's composer.json:
-```json
-{
-    "repositories": [
-        {
-          "type": "vcs",
-          "url": "ssh://git@gitlab.divante.pl:60022/pdunaj/pimcore-document-copier.git"
-        }
-      ]
-}
-```
-
-Install latest version from repo:
+Install latest version:
 ```bash
-composer require divante/pimcore-document-copier:dev-master
+composer require divante-ltd/pimcore-document-copier
 ```
 
 Add routing to `app/config/routing.yml`:
@@ -165,7 +155,8 @@ Pimcore Document Copier source code is completely free and released under the
 This module respects all Pimcore 6 code quality rules and our own PHPCS and PHPMD rulesets.
 
 ## About Authors
-![Divante-logo](http://divante.co/logo-HG.png "Divante")
+
+![Divante-logo](http://divante.com/logo-HG.png "Divante")
 
 We are a Software House from Europe, existing from 2008 and employing about 150 people. Our core competencies are built 
 around Magento, Pimcore and bespoke software projects (we love Symfony3, Node.js, Angular, React, Vue.js). 
@@ -178,4 +169,4 @@ and [Vue.js Storefront](https://github.com/DivanteLtd/vue-storefront "Vue.js Sto
 We are part of the OEX Group which is listed on the Warsaw Stock Exchange. Our annual revenue has been growing at a 
 minimum of about 30% year on year.
 
-Visit our website [Divante.co](https://divante.co/ "Divante.co") for more information.
+Visit our website [divante.com](https://divante.com/ "divante.com") for more information.
