@@ -106,7 +106,7 @@ pimcore.DocumentCopier = Class.create(pimcore.plugin.admin, {
             url: '/admin/api/export-document',
             method: 'POST',
 
-            jsonData: {
+            params: {
                 'path': document.path,
                 'depth': depth,
             },
